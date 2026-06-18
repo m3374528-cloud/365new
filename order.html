@@ -144,7 +144,7 @@
 <div class="header">
   <div>
     <div class="header-title">작업지시서</div>
-    <div class="header-sub">㈜삼육오안전관리</div>
+    
   </div>
 </div>
 
@@ -213,8 +213,9 @@
 
         <div class="field">
           <label>발주자 성명 또는 업체명 <span class="req">*</span></label>
+          <div style="font-size:11px;color:var(--amber);margin-bottom:4px;font-weight:600">⚠ 기존 고객은 반드시 검색 후 선택해주세요 (직접 입력 시 신규 업체로 등록됩니다)</div>
           <div class="search-wrap">
-            <input type="text" id="clientName" placeholder="이름 또는 업체명 입력" oninput="searchClient(this.value)" onchange="updatePreview()" autocomplete="off">
+            <input type="text" id="clientName" placeholder="업체명 검색 후 선택 (예: 홍길동)" oninput="searchClient(this.value)" onchange="updatePreview()" autocomplete="off">
             <div class="search-result" id="searchResult"></div>
           </div>
           <div class="proj-preview" id="projPreview"></div>
@@ -396,6 +397,9 @@
               <option>철거·재건축 선행</option>
               <option>정기 관리</option>
               <option>민원 해소</option>
+              <option>원상복구철거</option>
+              <option>주택누수</option>
+              <option>완파</option>
               <option>기타</option>
             </select>
           </div>
@@ -459,23 +463,23 @@
     </div>
 
     <div class="sec-card">
-      <div class="sec-head green">공사 완료 후 기재 (블로그용)</div>
+      <div class="sec-head green">공사 전 현장 파악 (블로그용)</div>
       <div class="sec-body">
         <div class="field">
-          <label>가장 중요했던 점</label>
-          <textarea id="keyPoint" placeholder="예) 월요일 출근 전까지 전 공정 완료"></textarea>
+          <label>예상되는 주요 작업 포인트</label>
+          <textarea id="keyPoint" placeholder="예) 주말 2일 안에 전 공정 완료해야 함, 음압 설치 공간 협소 예상"></textarea>
         </div>
         <div class="field">
-          <label>예상과 달랐던 점 / 돌발 상황</label>
-          <textarea id="surprise" placeholder="예) 도면에 없던 배관 보온재에서 추가 석면 발견"></textarea>
+          <label>예상되는 어려움 / 사전 주의사항</label>
+          <textarea id="surprise" placeholder="예) 도면 미확인 구역 추가 석면 가능성, 폐기물 반출 동선 협소"></textarea>
         </div>
         <div class="field">
-          <label>고객이 가장 만족한 부분</label>
-          <input type="text" id="satisfaction" placeholder="예) 일정 준수, 깔끔한 마감">
+          <label>고객의 주요 관심사 / 민감한 부분</label>
+          <input type="text" id="satisfaction" placeholder="예) 먼지·소음 최소화 요청, 주변 상가 민원 우려">
         </div>
         <div class="field">
-          <label>비슷한 현장 앞둔 분께 한마디</label>
-          <input type="text" id="tip" placeholder="예) 주말 공사는 최소 2주 전 신고 필수">
+          <label>유사 현장 경험 또는 참고사항</label>
+          <input type="text" id="tip" placeholder="예) 동일 건물 이전 시공 이력 있음, 석면조사 기존 자료 보유">
         </div>
         <div class="field">
           <label>현장 사진 사용 가능 여부</label>
@@ -606,21 +610,7 @@
           </div>
         </div>
 
-        <div class="field-row">
-          <div class="field">
-            <label>폐기물 처리 업체</label>
-            <input type="text" id="wasteVendor" placeholder="예) 베스트 / 미정">
-          </div>
-          <div class="field">
-            <label>하자보수 조건</label>
-            <select id="warranty">
-              <option value="">선택</option>
-              <option>1년 보증</option>
-              <option>6개월</option>
-              <option>해당 없음</option>
-            </select>
-          </div>
-        </div>
+
       </div>
     </div>
 
@@ -949,8 +939,8 @@ function collectData() {
     slateArea: document.querySelectorAll('.waste-area')[1].value,
     cubArea: document.querySelectorAll('.waste-area')[2].value,
     bamArea: document.querySelectorAll('.waste-area')[3].value,
-    wasteVendor: document.getElementById('wasteVendor').value,
-    warranty: document.getElementById('warranty').value,
+    wasteVendor: '',
+    warranty: '',
   };
 }
 
