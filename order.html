@@ -3,188 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>작업지시서 | 삼육오안전관리</title>
+<meta property="og:title" content="작업지시서">
+<meta property="og:description" content="㈜삼육오안전관리 작업지시서">
+<title>작업지시서</title>
 <style>
-  :root {
-    --teal: #004D40;
-    --teal-light: #E0F2F1;
-    --teal-mid: #00695C;
-    --green: #1B5E20;
-    --amber: #E65100;
-    --amber-light: #FFF3E0;
-    --blue: #0D47A1;
-    --blue-light: #E3F2FD;
-    --red: #B71C1C;
-    --red-light: #FFEBEE;
-    --gray: #424242;
-    --gray-light: #F5F5F5;
-    --border: #E0E0E0;
-    --white: #FFFFFF;
-    --text: #212121;
-    --text-sub: #757575;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Noto Sans KR', -apple-system, sans-serif; background: #F5F7FA; color: var(--text); font-size: 14px; }
+:root {
+  --teal:#004D40;--teal-l:#E0F2F1;--teal-m:#00695C;
+  --green:#1B5E20;--amber:#E65100;--amber-l:#FFF3E0;
+  --blue:#0D47A1;--blue-l:#E3F2FD;--red:#B71C1C;--red-l:#FFEBEE;
+  --gray:#424242;--gray-l:#F5F5F5;--border:#E0E0E0;
+  --text:#212121;--sub:#757575;--shadow:0 2px 8px rgba(0,0,0,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:#F5F7FA;color:var(--text);font-size:14px}
 
-  /* 헤더 */
-  .header { background: var(--teal); color: white; padding: 14px 16px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow); }
-  .header-title { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
-  .header-sub { font-size: 11px; opacity: 0.7; margin-top: 1px; }
+/* 헤더 */
+.hdr{background:var(--teal);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between}
+.hdr-title{font-size:16px;font-weight:700}
+.test-badge{background:#F44336;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:12px;display:none}
 
-  /* 탭 네비게이션 */
-  .tab-nav { background: white; border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; position: sticky; top: 56px; z-index: 99; }
-  .tab-btn { padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--text-sub); border: none; background: none; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all .2s; }
-  .tab-btn.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 700; }
+/* 테스트 토글 */
+.test-bar{background:#FFF3E0;border-bottom:2px solid var(--amber);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--amber);font-weight:600}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle input{opacity:0;width:0;height:0}
+.tslider{position:absolute;inset:0;background:var(--border);border-radius:24px;cursor:pointer;transition:.2s}
+.tslider:before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s}
+.toggle input:checked+.tslider{background:var(--amber)}
+.toggle input:checked+.tslider:before{transform:translateX(20px)}
 
-  /* 컨텐츠 */
-  .content { padding: 16px; max-width: 600px; margin: 0 auto; }
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
+/* 탭 */
+.tab-nav{background:#fff;border-bottom:1px solid var(--border);display:flex;position:sticky;top:48px;z-index:99}
+.tab-btn{flex:1;padding:11px 4px;font-size:12px;font-weight:500;color:var(--sub);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.tab-btn.active{color:var(--teal);border-bottom-color:var(--teal);font-weight:700}
 
-  /* 섹션 카드 */
-  .sec-card { background: white; border-radius: 12px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-  .sec-head { padding: 10px 14px; font-size: 12px; font-weight: 700; letter-spacing: .05em; display: flex; align-items: center; gap: 6px; }
-  .sec-head.teal { background: var(--teal); color: white; }
-  .sec-head.green { background: var(--green); color: white; }
-  .sec-head.amber { background: var(--amber); color: white; }
-  .sec-head.blue { background: var(--blue); color: white; }
-  .sec-body { padding: 14px; }
+/* 컨텐츠 */
+.content{padding:14px;max-width:600px;margin:0 auto}
+.tab-pane{display:none}.tab-pane.active{display:block}
 
-  /* 폼 필드 */
-  .field { margin-bottom: 12px; }
-  .field:last-child { margin-bottom: 0; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-  .field-row:last-child { margin-bottom: 0; }
-  label { display: block; font-size: 11px; font-weight: 600; color: var(--text-sub); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
-  label .req { color: var(--amber); margin-left: 2px; }
-  input[type=text], input[type=number], input[type=tel], input[type=date], select, textarea {
-    width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
-    font-size: 14px; font-family: inherit; color: var(--text); background: white;
-    transition: border-color .15s; -webkit-appearance: none;
-  }
-  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal); }
-  textarea { resize: vertical; min-height: 72px; }
-  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23757575' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+/* 카드 */
+.card{background:#fff;border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card-head{padding:9px 14px;font-size:12px;font-weight:700;letter-spacing:.04em;color:#fff}
+.card-head.teal{background:var(--teal)}
+.card-head.green{background:var(--green)}
+.card-head.amber{background:var(--amber)}
+.card-head.blue{background:var(--blue)}
+.card-body{padding:14px}
 
-  /* 자동생성 필드 */
-  .auto-field { background: var(--teal-light); border-color: var(--teal-mid); color: var(--teal); font-weight: 600; }
+/* 폼 */
+.field{margin-bottom:11px}.field:last-child{margin-bottom:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:11px}
+.row2:last-child{margin-bottom:0}
+label{display:block;font-size:11px;font-weight:600;color:var(--sub);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+label .req{color:var(--amber);margin-left:2px}
+input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--text);background:#fff;transition:border-color .15s;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal)}
+textarea{resize:vertical;min-height:68px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23757575' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.auto-f{background:var(--teal-l);border-color:var(--teal-m);color:var(--teal);font-weight:600}
+.disabled-f{background:var(--gray-l);color:var(--sub);pointer-events:none}
 
-  /* 업체 검색 */
-  .search-wrap { position: relative; }
-  .search-result { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1.5px solid var(--teal); border-radius: 8px; max-height: 180px; overflow-y: auto; z-index: 200; box-shadow: var(--shadow); display: none; }
-  .search-item { padding: 10px 12px; cursor: pointer; border-bottom: 1px solid var(--gray-light); display: flex; justify-content: space-between; align-items: center; }
-  .search-item:hover { background: var(--teal-light); }
-  .search-item:last-child { border-bottom: none; }
-  .search-num { font-size: 11px; color: var(--text-sub); }
+/* 업체 검색 */
+.srch-wrap{position:relative}
+.srch-result{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--teal);border-radius:8px;max-height:180px;overflow-y:auto;z-index:200;box-shadow:var(--shadow);display:none}
+.srch-item{padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--gray-l);display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.srch-item:hover{background:var(--teal-l)}
+.srch-item:last-child{border-bottom:none}
+.srch-num{font-size:11px;color:var(--sub)}
 
-  /* 프리뷰 배지 */
-  .proj-preview { background: var(--teal-light); border: 1.5px solid var(--teal-mid); border-radius: 8px; padding: 10px 12px; font-size: 13px; font-weight: 700; color: var(--teal); margin-top: 8px; display: none; text-align: center; letter-spacing: 1px; }
+/* 프로젝트 번호 프리뷰 */
+.proj-preview{background:var(--teal-l);border:1.5px solid var(--teal-m);border-radius:8px;padding:10px 12px;font-size:13px;font-weight:700;color:var(--teal);margin-top:6px;display:none;text-align:center;letter-spacing:1px}
+.proj-preview.test-mode{background:#FFF3E0;border-color:var(--amber);color:var(--amber)}
 
-  /* 토글 스위치 */
-  .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray-light); }
-  .toggle-row:last-of-type { border-bottom: none; }
-  .toggle-label { font-size: 14px; color: var(--text); }
-  .toggle-sub { font-size: 11px; color: var(--text-sub); margin-top: 1px; }
-  .toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
-  .toggle input { opacity: 0; width: 0; height: 0; }
-  .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 24px; cursor: pointer; transition: .2s; }
-  .toggle-slider:before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: .2s; }
-  .toggle input:checked + .toggle-slider { background: var(--teal); }
-  .toggle input:checked + .toggle-slider:before { transform: translateX(20px); }
+/* 금액 입력 */
+.amt-wrap{display:grid;grid-template-columns:1fr 120px;gap:8px}
+.amt-note{font-size:11px;color:var(--teal);margin-top:4px;font-weight:600}
 
-  /* 조건부 표시 */
-  .conditional { display: none; margin-top: 10px; padding: 12px; background: var(--gray-light); border-radius: 8px; }
-  .conditional.show { display: block; }
+/* 조건부 */
+.cond{display:none;margin-top:8px;padding:10px 12px;background:var(--gray-l);border-radius:8px}
+.cond.show{display:block}
 
-  /* 다중선택 태그 */
-  .tag-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-  .tag { padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border); font-size: 12px; cursor: pointer; background: white; color: var(--text-sub); transition: all .15s; user-select: none; }
-  .tag.selected { background: var(--teal); border-color: var(--teal); color: white; font-weight: 600; }
-  .tag.selected-amber { background: var(--amber); border-color: var(--amber); color: white; font-weight: 600; }
+/* 태그 */
+.tag-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{padding:6px 12px;border-radius:20px;border:1.5px solid var(--border);font-size:12px;cursor:pointer;background:#fff;color:var(--sub);transition:all .15s;user-select:none}
+.tag.sel{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:600}
 
-  /* 날씨 표시 */
-  .weather-box { background: var(--blue-light); border: 1px solid #90CAF9; border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--blue); margin-top: 6px; display: none; }
+/* 원가 테이블 */
+.cost-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.cost-tbl tr{border-bottom:1px solid var(--gray-l)}
+.cost-tbl td{padding:8px 4px}
+.cost-tbl td:last-child{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.cost-tbl .ttl td{font-size:14px;font-weight:700;color:var(--teal);border-top:2px solid var(--teal)}
+.pend{color:var(--amber)}
 
-  /* 알림 박스 */
-  .alert-box { padding: 10px 12px; border-radius: 8px; font-size: 12px; margin-bottom: 12px; display: none; }
-  .alert-box.warning { background: var(--amber-light); border: 1px solid #FFCC80; color: var(--amber); }
-  .alert-box.error { background: var(--red-light); border: 1px solid #EF9A9A; color: var(--red); }
-  .alert-box.success { background: var(--teal-light); border: 1px solid #80CBC4; color: var(--teal); }
+/* 알림 */
+.alert{padding:10px 12px;border-radius:8px;font-size:12px;margin-bottom:10px;display:none}
+.alert.warn{background:var(--amber-l, #FFF3E0);border:1px solid #FFCC80;color:var(--amber)}
+.alert.err{background:var(--red-l);border:1px solid #EF9A9A;color:var(--red)}
+.alert.ok{background:var(--teal-l);border:1px solid #80CBC4;color:var(--teal)}
 
-  /* 원가 계산 결과 */
-  .cost-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .cost-table tr { border-bottom: 1px solid var(--gray-light); }
-  .cost-table td { padding: 8px 4px; }
-  .cost-table td:last-child { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .cost-table .total-row td { font-size: 14px; font-weight: 700; color: var(--teal); border-top: 2px solid var(--teal); }
-  .cost-table .pending { color: var(--amber); }
+/* 버튼 */
+.btn{width:100%;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn:active{background:var(--teal-m)}
+.btn:disabled{background:var(--border);color:var(--sub);cursor:not-allowed}
+.btn-sub{background:#757575}
+.btn-sm{width:auto;padding:9px 20px;font-size:13px}
+.nav-btns{display:flex;gap:8px;margin-top:4px}
 
-  /* 제출 버튼 */
-  .submit-wrap { padding: 16px; background: white; border-top: 1px solid var(--border); position: sticky; bottom: 0; }
-  .btn-submit { width: 100%; padding: 14px; background: var(--teal); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background .15s; font-family: inherit; }
-  .btn-submit:active { background: var(--teal-mid); }
-  .btn-submit:disabled { background: var(--border); color: var(--text-sub); cursor: not-allowed; }
+/* 제출 고정 */
+.submit-wrap{padding:14px;background:#fff;border-top:1px solid var(--border);position:sticky;bottom:0}
 
-  /* 로딩 */
-  .loading { display: none; text-align: center; padding: 40px 16px; }
-  .spinner { width: 36px; height: 36px; border: 3px solid var(--teal-light); border-top-color: var(--teal); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 12px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* 완료 */
+.done{display:none;text-align:center;padding:40px 16px}
+.done-icon{width:64px;height:64px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;color:#fff}
+.done-num{font-size:22px;font-weight:700;color:var(--teal);letter-spacing:1px;margin:8px 0}
 
-  /* 완료 화면 */
-  .done-screen { display: none; text-align: center; padding: 40px 16px; }
-  .done-icon { width: 64px; height: 64px; background: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 28px; }
-  .done-proj { font-size: 22px; font-weight: 700; color: var(--teal); letter-spacing: 1px; margin: 8px 0; }
-  .done-sub { font-size: 13px; color: var(--text-sub); }
-  .btn-new { margin-top: 20px; padding: 12px 24px; background: var(--teal); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+/* 로딩 */
+.loading{display:none;text-align:center;padding:40px}
+.spinner{width:36px;height:36px;border:3px solid var(--teal-l);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.warn-tip{font-size:11px;color:var(--amber);font-weight:600;margin-bottom:4px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <div class="header-title">작업지시서</div>
-    
-  </div>
+<div class="hdr">
+  <div class="hdr-title">작업지시서</div>
+  <span class="test-badge" id="testBadge">TEST</span>
 </div>
 
-<div class="tab-nav" id="tabNav">
-  <button class="tab-btn active" onclick="showTab('a')">A. 기본정보</button>
-  <button class="tab-btn" onclick="showTab('b')">B. 공사상세</button>
-  <button class="tab-btn" onclick="showTab('c')">C. 경리/원가</button>
-  <button class="tab-btn" onclick="showTab('confirm')">확인/제출</button>
+<div class="test-bar">
+  <span>테스트 모드 (실제 데이터에 영향 없음)</span>
+  <label class="toggle">
+    <input type="checkbox" id="testToggle" onchange="onTestToggle()">
+    <span class="tslider"></span>
+  </label>
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="goTab('a')">A. 업무내용</button>
+  <button class="tab-btn" onclick="goTab('b')">B. 원가계산</button>
+  <button class="tab-btn" onclick="goTab('c')">C. 공사상세</button>
+  <button class="tab-btn" onclick="goTab('confirm')">확인/제출</button>
 </div>
 
 <div class="content">
-  <div id="alertBox" class="alert-box"></div>
+  <div id="alert-box" class="alert"></div>
 
-  <!-- A탭: 기본정보 -->
+  <!-- ========== A탭 ========== -->
   <div class="tab-pane active" id="tab-a">
 
-    <div class="sec-card">
-      <div class="sec-head teal">자동 생성</div>
-      <div class="sec-body">
-        <div class="field-row">
+    <div class="card">
+      <div class="card-head teal">자동 생성</div>
+      <div class="card-body">
+        <div class="row2">
           <div class="field">
             <label>프로젝트번호</label>
-            <input type="text" id="projNum" class="auto-field" readonly placeholder="자동발급">
+            <input id="projNum" class="auto-f" readonly placeholder="자동발급">
           </div>
           <div class="field">
             <label>접수일시</label>
-            <input type="text" id="receiveDate" class="auto-field" readonly placeholder="자동입력">
+            <input id="recvDate" class="auto-f" readonly>
           </div>
         </div>
-        <div class="field">
-          <label>현장명 (자동조합)</label>
-          <input type="text" id="projName" class="auto-field" readonly placeholder="아래 정보 입력 후 자동생성">
-        </div>
+        <div class="proj-preview" id="projPreview"></div>
       </div>
     </div>
 
-    <div class="sec-card">
-      <div class="sec-head teal">기본 정보</div>
-      <div class="sec-body">
-        <div class="field-row">
+    <div class="card">
+      <div class="card-head teal">사업자 정보</div>
+      <div class="card-body">
+        <div class="row2">
           <div class="field">
             <label>사업자 구분 <span class="req">*</span></label>
             <select id="bizType" onchange="updatePreview()">
@@ -210,261 +199,400 @@
             </select>
           </div>
         </div>
-
         <div class="field">
-          <label>발주자 성명 또는 업체명 <span class="req">*</span></label>
-          <div style="font-size:11px;color:var(--amber);margin-bottom:4px;font-weight:600">⚠ 기존 고객은 반드시 검색 후 선택해주세요 (직접 입력 시 신규 업체로 등록됩니다)</div>
-          <div class="search-wrap">
-            <input type="text" id="clientName" placeholder="업체명 검색 후 선택 (예: 홍길동)" oninput="searchClient(this.value)" onchange="updatePreview()" autocomplete="off">
-            <div class="search-result" id="searchResult"></div>
+          <p class="warn-tip">⚠ 기존 고객은 반드시 검색 후 선택 (직접 입력 시 신규 업체로 등록됩니다)</p>
+          <label>발주자 성명 / 업체명 <span class="req">*</span></label>
+          <div class="srch-wrap">
+            <input id="clientName" placeholder="업체명 검색 후 선택" oninput="searchClient(this.value)" onblur="hideSearch()" autocomplete="off" onchange="updatePreview()">
+            <div class="srch-result" id="srchResult"></div>
           </div>
-          <div class="proj-preview" id="projPreview"></div>
-        </div>
-
-        <div class="field">
-          <label>현장 주소 (전체) <span class="req">*</span></label>
-          <input type="text" id="address" placeholder="도로명 주소 전체 입력" oninput="updatePreview()">
-        </div>
-
-        <div class="field">
-          <label>공사 내용 <span class="req">*</span></label>
-          <input type="text" id="workContent" placeholder="예) 텍스 철거 및 석고텍스 시공">
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label>공사금액 (원) <span class="req">*</span></label>
-            <input type="number" id="contractAmt" placeholder="예) 7600000" oninput="calcCost()">
-          </div>
-          <div class="field">
-            <label>발주자 연락처 <span class="req">*</span></label>
-            <input type="tel" id="clientPhone" placeholder="010-0000-0000">
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label>영업 담당자 <span class="req">*</span></label>
-            <select id="salesPerson">
-              <option value="">선택</option>
-              <option>김원일</option>
-              <option>조항신</option>
-              <option>백상혁</option>
-              <option>이사님</option>
-              <option>사장님</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>공사 예정일 <span class="req">*</span></label>
-            <input type="date" id="workDate" onchange="loadWeather()">
-          </div>
-        </div>
-        <div class="weather-box" id="weatherBox"></div>
-
-        <div class="field">
-          <label>특이사항</label>
-          <input type="text" id="note" placeholder="예) 긴급건, 준공검사 필요 등">
         </div>
       </div>
     </div>
 
-    <div style="text-align:right; padding: 4px 0 8px;">
-      <button class="btn-submit" style="width:auto;padding:10px 24px;font-size:13px" onclick="showTab('b')">다음 → 공사상세</button>
+    <div class="card">
+      <div class="card-head teal">업무 내용</div>
+      <div class="card-body">
+
+        <div class="field">
+          <label>1. 공사명 <span class="req">*</span></label>
+          <select id="workTitle" onchange="onWorkTitleChange()">
+            <option value="">선택</option>
+            <option>석면철거</option>
+            <option>리모델링공사</option>
+            <option>일반철거</option>
+            <option>안전관리유지보수</option>
+            <option value="other">기타 (직접입력)</option>
+          </select>
+          <input id="workTitleOther" placeholder="공사명 직접 입력" style="margin-top:6px;display:none">
+        </div>
+
+        <div class="field">
+          <label>2. 주소 <span class="req">*</span></label>
+          <input id="address" placeholder="도로명 주소 전체 입력" onchange="updatePreview()">
+        </div>
+
+        <div class="field">
+          <label>3. 공사내용 <span class="req">*</span></label>
+          <input id="workContent" placeholder="예) 텍스 철거 및 석고텍스 시공">
+        </div>
+
+        <div class="field">
+          <label>4. 공사범위</label>
+          <input id="workScope" placeholder="예) 1층 사무공간, 옥탑 식당·창고">
+        </div>
+
+        <div class="field">
+          <label>5. 감리 및 측정 <span class="req">*</span></label>
+          <select id="superYnA" onchange="onSuperChange()">
+            <option value="">선택</option>
+            <option value="무">무</option>
+            <option value="유">유</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>6. 폐기물</label>
+          <select id="wasteVendor">
+            <option value="">선택</option>
+            <option>케이투제이개발</option>
+            <option>디와이솔루션</option>
+            <option>분리발주</option>
+          </select>
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label>7. 발주자 성명</label>
+            <input id="clientPersonName" placeholder="홍길동 상무">
+          </div>
+          <div class="field">
+            <label>발주자 연락처</label>
+            <input id="clientPhone" placeholder="010-0000-0000" oninput="fmtPhone(this)" maxlength="13">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>8. 영업 담당자 <span class="req">*</span></label>
+          <select id="salesPerson">
+            <option value="">선택</option>
+            <option>김원일</option>
+            <option>조항신</option>
+            <option>백상혁</option>
+            <option>이재하</option>
+            <option>이사님</option>
+            <option>사장님</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>9. 특이사항</label>
+          <textarea id="note" placeholder="예) 긴급건, 준공검사 필요, 무석면 등"></textarea>
+        </div>
+
+        <div class="field">
+          <label>10. 공사 예정일 <span class="req">*</span></label>
+          <input type="date" id="workDate">
+        </div>
+
+        <div class="field" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+          <label>공사금액 (원) <span class="req">*</span></label>
+          <div class="amt-wrap">
+            <input type="number" id="contractAmt" placeholder="예) 7600000" oninput="calcCost()">
+            <select id="vatType" onchange="calcCost()">
+              <option value="exclusive">부가세 별도</option>
+              <option value="inclusive">부가세 포함</option>
+            </select>
+          </div>
+          <div class="amt-note" id="amtNote"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-sm" onclick="goTab('b')">다음 → 원가계산</button>
     </div>
   </div>
 
-  <!-- B탭: 공사 상세 -->
+  <!-- ========== B탭: 원가계산 ========== -->
   <div class="tab-pane" id="tab-b">
 
-    <div class="sec-card">
-      <div class="sec-head green">현장 물리 정보</div>
-      <div class="sec-body">
-        <div class="field-row">
+    <div class="card">
+      <div class="card-head amber">조사·측정·감리</div>
+      <div class="card-body">
+
+        <div class="field">
+          <label>석면조사</label>
+          <select id="surveyYn" onchange="onSurveyChange()">
+            <option value="무">무</option>
+            <option value="유">유</option>
+          </select>
+          <div class="cond" id="surveyDetail">
+            <label>석면조사비</label>
+            <select id="surveyAmt" onchange="calcCost()">
+              <option value="250000">25만원</option>
+              <option value="300000">30만원</option>
+              <option value="400000">40만원</option>
+              <option value="500000">50만원</option>
+              <option value="custom">직접 입력</option>
+            </select>
+            <input type="number" id="surveyCustom" placeholder="직접 입력 (원)" style="margin-top:6px;display:none" oninput="calcCost()">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>후측정</label>
+          <select id="postMeasYn" onchange="calcCost()">
+            <option value="무">무</option>
+            <option value="유">유 — 300,000원 고정</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>감리</label>
+          <input id="superYnB" class="auto-f" readonly placeholder="A탭 감리 선택에 연동됩니다">
+          <div class="cond" id="superDetail">
+            <label>감리 일수</label>
+            <select id="superDays" onchange="calcCost()">
+              <option value="1">1일 — 900,000원</option>
+              <option value="2">2일 — 1,600,000원</option>
+              <option value="3">3일 — 2,400,000원</option>
+              <option value="4">4일 — 3,200,000원</option>
+              <option value="5">5일 — 4,000,000원</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head amber">폐기물</div>
+      <div class="card-body">
+        <div class="field">
+          <label>운반 거리 (출발지: 인천)</label>
+          <select id="distZone" onchange="calcCost()">
+            <option value="">선택</option>
+            <option value="수도권">수도권 — 300,000원</option>
+            <option value="60~110km">60~110km — 400,000원</option>
+            <option value="110~160km">110~160km — 500,000원</option>
+            <option value="160~210km">160~210km — 600,000원</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>자재별 면적 (자재비·처리비 동시 계산)</label>
+          <div style="background:var(--gray-l);border-radius:8px;overflow:hidden;margin-top:4px">
+            <div style="display:grid;grid-template-columns:1fr 72px 84px 84px;gap:4px;padding:7px 10px;background:var(--teal);color:#fff;font-size:11px;font-weight:600">
+              <span>자재</span><span style="text-align:center">㎡</span><span style="text-align:right">자재비</span><span style="text-align:right">처리비</span>
+            </div>
+            <div id="wasteRows">
+              <div class="wrow" data-k="tex" style="display:grid;grid-template-columns:1fr 72px 84px 84px;gap:4px;padding:7px 10px;align-items:center;border-bottom:1px solid var(--border)">
+                <span style="font-size:13px">텍스</span>
+                <input type="number" class="w-area" placeholder="㎡" style="padding:5px 7px;font-size:12px" oninput="calcCost()">
+                <span class="m-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
+                <span class="w-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
+              </div>
+              <div class="wrow" data-k="slate" style="display:grid;grid-template-columns:1fr 72px 84px 84px;gap:4px;padding:7px 10px;align-items:center;border-bottom:1px solid var(--border)">
+                <span style="font-size:13px">슬레이트</span>
+                <input type="number" class="w-area" placeholder="㎡" style="padding:5px 7px;font-size:12px" oninput="calcCost()">
+                <span class="m-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
+                <span class="w-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
+              </div>
+              <div class="wrow" data-k="cub" style="display:grid;grid-template-columns:1fr 72px 84px 84px;gap:4px;padding:7px 10px;align-items:center;border-bottom:1px solid var(--border)">
+                <span style="font-size:13px">큐비클</span>
+                <input type="number" class="w-area" placeholder="㎡" style="padding:5px 7px;font-size:12px" oninput="calcCost()">
+                <span class="m-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
+                <span class="w-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
+              </div>
+              <div class="wrow" data-k="bam" style="display:grid;grid-template-columns:1fr 72px 84px 84px;gap:4px;padding:7px 10px;align-items:center">
+                <span style="font-size:13px">밤라이트</span>
+                <input type="number" class="w-area" placeholder="㎡" style="padding:5px 7px;font-size:12px" oninput="calcCost()">
+                <span class="m-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
+                <span class="w-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head blue">원가 계산 결과 (초안)</div>
+      <div class="card-body">
+        <table class="cost-tbl">
+          <tr><td>자재비 (확정)</td><td id="r_mat">-</td></tr>
+          <tr><td>폐기물 처리비 <small class="pend">🔶임시</small></td><td id="r_waste" class="pend">-</td></tr>
+          <tr><td>폐기물 운반비 <small class="pend">🔶임시</small></td><td id="r_transport" class="pend">-</td></tr>
+          <tr><td>석면조사비</td><td id="r_survey">-</td></tr>
+          <tr><td>후측정비</td><td id="r_post">-</td></tr>
+          <tr><td>감리비</td><td id="r_super">-</td></tr>
+          <tr><td>일반관리비 (10%)</td><td id="r_mgmt">-</td></tr>
+          <tr class="ttl"><td>원가 합계 (임시)</td><td id="r_total">-</td></tr>
+          <tr><td>공사금액 (공급가액 기준)</td><td id="r_contract">-</td></tr>
+          <tr id="profitRow"><td>예상 이익</td><td id="r_profit">-</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn btn-sub btn-sm" onclick="goTab('a')">← 업무내용</button>
+      <button class="btn btn-sm" style="flex:1" onclick="goTab('c')">다음 → 공사상세</button>
+    </div>
+  </div>
+
+  <!-- ========== C탭: 공사상세 ========== -->
+  <div class="tab-pane" id="tab-c">
+
+    <div class="card">
+      <div class="card-head green">현장 물리 정보</div>
+      <div class="card-body">
+        <div class="row2">
           <div class="field">
-            <label>건물 유형 <span class="req">*</span></label>
+            <label>건물 유형</label>
             <select id="buildingType">
               <option value="">선택</option>
-              <option>공공기관·단체</option>
-              <option>관공서</option>
-              <option>사무실·상가</option>
-              <option>공동주택</option>
-              <option>단독주택·빌라</option>
-              <option>학교·교육시설</option>
-              <option>공장·산업시설</option>
+              <option>아파트/주택</option>
+              <option>창고</option>
+              <option>축사</option>
+              <option>상가/사무실</option>
               <option>의료시설</option>
-              <option>기타</option>
+              <option>학교/교육시설</option>
+              <option>관공서</option>
+              <option>다중이용시설</option>
+              <option>공장/산업시설</option>
             </select>
           </div>
           <div class="field">
             <label>건물 준공 연도</label>
-            <input type="text" id="buildYear" placeholder="예) 1985년">
+            <input id="buildYear" placeholder="예) 1985년">
           </div>
         </div>
-
-        <div class="field-row">
+        <div class="row2">
           <div class="field">
             <label>엘리베이터</label>
-            <select id="elevator">
-              <option value="">선택</option>
-              <option>있음</option>
-              <option>없음</option>
-            </select>
+            <select id="elevator"><option value="">선택</option><option>있음</option><option>없음</option></select>
           </div>
           <div class="field">
             <label>층고</label>
-            <input type="text" id="floorHeight" placeholder="예) 2.4m">
+            <input id="floorHeight" placeholder="예) 2.4m">
           </div>
         </div>
-
         <div class="field">
-          <label>공사 범위 (층·공간) <span class="req">*</span></label>
-          <input type="text" id="workScope" placeholder="예) 1층 사무공간, 옥탑 식당·창고">
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label>작업 면적 (㎡)</label>
-            <input type="number" id="workArea" placeholder="예) 112.4" oninput="calcCost()">
-          </div>
-          <div class="field">
-            <label>예상 공사기간</label>
-            <input type="text" id="estimatedPeriod" placeholder="예) 3일 (해체1+시공2)">
-          </div>
-        </div>
-
-        <div class="field">
-          <label>석면 부위 / 자재 종류</label>
+          <label>석면 부위 / 자재</label>
           <div class="tag-group" id="asbestosArea">
-            <span class="tag" onclick="toggleTag(this,'multi')">천장 텍스</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">바닥 비닐타일</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">슬레이트 지붕</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">뿜칠 마감재</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">배관 보온재</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">방화문 심재</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">기타</span>
+            <span class="tag" onclick="togTag(this)">천장텍스</span>
+            <span class="tag" onclick="togTag(this)">지붕슬레이트</span>
+            <span class="tag" onclick="togTag(this)">천장밤라이트</span>
+            <span class="tag" onclick="togTag(this)">벽밤라이트</span>
+            <span class="tag" onclick="togTag(this)">큐비클</span>
+            <span class="tag" onclick="togTag(this)">캐스킷</span>
+            <span class="tag" onclick="togTag(this)">뿜</span>
+            <span class="tag" onclick="togTag(this)">바닥타일</span>
+            <span class="tag" onclick="togTag(this)">기타</span>
           </div>
         </div>
-
         <div class="field">
           <label>덧방 유무</label>
           <div class="tag-group" id="overCoatYn">
-            <span class="tag" onclick="toggleTag(this,'single','overCoatYn'); toggleConditional('overCoatDetail', this.textContent==='O')">O</span>
-            <span class="tag" onclick="toggleTag(this,'single','overCoatYn'); toggleConditional('overCoatDetail', false)">X</span>
+            <span class="tag" onclick="togSingle(this,'overCoatYn'); toggleCond('overCoatDetail',this.textContent==='O')">O</span>
+            <span class="tag" onclick="togSingle(this,'overCoatYn'); toggleCond('overCoatDetail',false)">X</span>
           </div>
-          <div class="conditional" id="overCoatDetail">
+          <div class="cond" id="overCoatDetail">
             <label>덧방 종류</label>
-            <select id="overCoatType">
+            <select id="overCoatType" onchange="document.getElementById('overCoatOther').style.display=this.value==='other'?'block':'none'">
               <option value="">선택</option>
-              <option>도배</option>
-              <option>페인트</option>
-              <option>석고보드</option>
+              <option>도배</option><option>페인트</option><option>석고보드</option>
               <option value="other">기타 (직접입력)</option>
             </select>
-            <input type="text" id="overCoatOther" placeholder="기타 입력" style="margin-top:8px;display:none">
+            <input id="overCoatOther" placeholder="기타 입력" style="margin-top:6px;display:none">
           </div>
         </div>
-
         <div class="field">
           <label>재시공 여부 및 내용</label>
-          <input type="text" id="reConstruct" placeholder="예) 석고텍스 120㎡ 재시공 / 해당없음">
+          <input id="reConstruct" placeholder="예) 석고텍스 120㎡ 재시공 / 해당없음">
+        </div>
+        <div class="field">
+          <label>예상 공사기간</label>
+          <input id="estPeriod" placeholder="예) 3일 (해체1+시공2)">
         </div>
       </div>
     </div>
 
-    <div class="sec-card">
-      <div class="sec-head green">의뢰 배경 & 제약</div>
-      <div class="sec-body">
-        <div class="field-row">
+    <div class="card">
+      <div class="card-head green">의뢰 배경</div>
+      <div class="card-body">
+        <div class="row2">
           <div class="field">
             <label>의뢰 경위</label>
             <select id="contactRoute">
               <option value="">선택</option>
-              <option>기존 고객 재의뢰</option>
-              <option>소개·추천</option>
-              <option>블로그·검색 유입</option>
-              <option>입찰·견적 경쟁</option>
-              <option>전화 문의</option>
-              <option>기타</option>
+              <option>기존 고객 재의뢰</option><option>소개·추천</option>
+              <option>블로그·검색</option><option>입찰·견적 경쟁</option>
+              <option>전화 문의</option><option>기타</option>
             </select>
           </div>
           <div class="field">
             <label>공사 목적</label>
             <select id="workPurpose">
               <option value="">선택</option>
-              <option>무석면 건축물 등록</option>
-              <option>리모델링 선행작업</option>
-              <option>건물 매매 전 처리</option>
-              <option>철거·재건축 선행</option>
-              <option>정기 관리</option>
-              <option>민원 해소</option>
-              <option>원상복구철거</option>
-              <option>주택누수</option>
-              <option>완파</option>
+              <option>무석면 건축물 등록</option><option>리모델링 선행작업</option>
+              <option>건물 매매 전 처리</option><option>철거·재건축 선행</option>
+              <option>정기 관리</option><option>민원 해소</option>
+              <option>원상복구철거</option><option>주택누수</option><option>완파</option>
               <option>기타</option>
             </select>
           </div>
         </div>
-
-        <div class="field-row">
+        <div class="row2">
           <div class="field">
             <label>현장 상태</label>
             <select id="siteStatus">
               <option value="">선택</option>
-              <option>공실</option>
-              <option>운영 중</option>
-              <option>리모델링 중</option>
-              <option>거주 중</option>
-              <option>철거 예정</option>
+              <option>공실</option><option>운영 중</option><option>리모델링 중</option>
+              <option>거주 중</option><option>철거 예정</option>
             </select>
           </div>
           <div class="field">
             <label>긴급 여부</label>
-            <select id="urgentYn">
-              <option value="일반">일반</option>
-              <option value="긴급">긴급</option>
-            </select>
+            <select id="urgentYn"><option value="일반">일반</option><option value="긴급">긴급</option></select>
           </div>
         </div>
-
         <div class="field">
           <label>현장 제약 조건</label>
           <div class="tag-group" id="siteLimit">
-            <span class="tag" onclick="toggleTag(this,'multi')">주말만 가능</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">야간 작업</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">거주자 있음</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">소음·분진 우려</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">협소 공간</span>
-            <span class="tag" onclick="toggleTag(this,'multi')">준공검사 필요</span>
+            <span class="tag" onclick="togTag(this)">주말만 가능</span>
+            <span class="tag" onclick="togTag(this)">야간 작업</span>
+            <span class="tag" onclick="togTag(this)">거주자 있음</span>
+            <span class="tag" onclick="togTag(this)">소음·분진 우려</span>
+            <span class="tag" onclick="togTag(this)">협소 공간</span>
+            <span class="tag" onclick="togTag(this)">준공검사 필요</span>
+            <span class="tag" onclick="togTag(this)">집기이동불가</span>
           </div>
         </div>
-
         <div class="field">
-          <label>민원 소지 여부</label>
-          <input type="text" id="complaintRisk" placeholder="예) 바로 옆 상가, 주택가 밀집 / 없음">
+          <label>민원 소지</label>
+          <input id="complaintRisk" placeholder="예) 바로 옆 상가 / 없음">
         </div>
-
         <div class="field">
           <label>고객 요구사항</label>
-          <input type="text" id="clientRequest" placeholder="예) 완료 일정 엄수, 행정 절차 대행">
+          <input id="clientRequest" placeholder="예) 완료 일정 엄수, 행정 절차 대행">
         </div>
-
         <div class="field">
-          <label>고객 석면 지식 수준</label>
+          <label>고객 석면 지식</label>
           <select id="clientKnowledge">
             <option value="">선택</option>
-            <option>거의 모름</option>
-            <option>기본 개념만 앎</option>
-            <option>절차 일부 파악</option>
-            <option>종합정보망 등 행정 문의</option>
+            <option>거의 모름</option><option>기본 개념만 앎</option>
+            <option>절차 일부 파악</option><option>종합정보망 등 문의</option>
             <option>전문 지식 보유</option>
           </select>
         </div>
       </div>
     </div>
 
-    <div class="sec-card">
-      <div class="sec-head green">공사 전 현장 파악 (블로그용)</div>
-      <div class="sec-body">
+    <div class="card">
+      <div class="card-head green">공사 전 현장 파악 (블로그용)</div>
+      <div class="card-body">
         <div class="field">
           <label>예상되는 주요 작업 포인트</label>
           <textarea id="keyPoint" placeholder="예) 주말 2일 안에 전 공정 완료해야 함, 음압 설치 공간 협소 예상"></textarea>
@@ -474,452 +602,341 @@
           <textarea id="surprise" placeholder="예) 도면 미확인 구역 추가 석면 가능성, 폐기물 반출 동선 협소"></textarea>
         </div>
         <div class="field">
-          <label>고객의 주요 관심사 / 민감한 부분</label>
-          <input type="text" id="satisfaction" placeholder="예) 먼지·소음 최소화 요청, 주변 상가 민원 우려">
+          <label>고객의 주요 관심사</label>
+          <input id="satisfaction" placeholder="예) 먼지·소음 최소화 요청, 주변 상가 민원 우려">
         </div>
         <div class="field">
           <label>유사 현장 경험 또는 참고사항</label>
-          <input type="text" id="tip" placeholder="예) 동일 건물 이전 시공 이력 있음, 석면조사 기존 자료 보유">
+          <input id="tip" placeholder="예) 동일 건물 이전 시공 이력 있음">
         </div>
         <div class="field">
           <label>현장 사진 사용 가능 여부</label>
           <select id="photoYn">
             <option value="">선택</option>
-            <option>사용 가능</option>
-            <option>일부만 가능</option>
-            <option>사용 불가</option>
+            <option>사용 가능</option><option>일부만 가능</option><option>사용 불가</option>
           </select>
         </div>
       </div>
     </div>
 
-    <div style="display:flex;gap:10px;padding:4px 0 8px;">
-      <button class="btn-submit" style="width:auto;padding:10px 20px;font-size:13px;background:#757575" onclick="showTab('a')">← 기본정보</button>
-      <button class="btn-submit" style="width:auto;padding:10px 20px;font-size:13px;flex:1" onclick="showTab('c')">다음 → 경리/원가</button>
+    <div class="nav-btns">
+      <button class="btn btn-sub btn-sm" onclick="goTab('b')">← 원가계산</button>
+      <button class="btn btn-sm" style="flex:1" onclick="goTab('confirm')">확인/제출 →</button>
     </div>
   </div>
 
-  <!-- C탭: 경리/원가 -->
-  <div class="tab-pane" id="tab-c">
-
-    <div class="sec-card">
-      <div class="sec-head amber">조사·측정·감리</div>
-      <div class="sec-body">
-        <div class="toggle-row">
-          <div>
-            <div class="toggle-label">석면조사</div>
-            <div class="toggle-sub">석면조사비 포함 여부</div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="surveyYn" onchange="toggleConditional('surveyDetail', this.checked); calcCost()">
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-        <div class="conditional" id="surveyDetail">
-          <label>석면조사비</label>
-          <select id="surveyAmt" onchange="calcCost()">
-            <option value="250000">25만원</option>
-            <option value="300000">30만원</option>
-            <option value="400000">40만원</option>
-            <option value="500000">50만원</option>
-            <option value="custom">직접 입력</option>
-          </select>
-          <input type="number" id="surveyCustom" placeholder="금액 직접 입력" style="margin-top:8px;display:none" oninput="calcCost()">
-        </div>
-
-        <div class="toggle-row">
-          <div>
-            <div class="toggle-label">후측정</div>
-            <div class="toggle-sub">300,000원 고정</div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="postMeasYn" onchange="calcCost()">
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-
-        <div class="toggle-row">
-          <div>
-            <div class="toggle-label">감리</div>
-            <div class="toggle-sub">1일 90만 / 2일이상 80만/일</div>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="superYn" onchange="toggleConditional('superDetail', this.checked); calcCost()">
-            <span class="toggle-slider"></span>
-          </label>
-        </div>
-        <div class="conditional" id="superDetail">
-          <label>감리 일수</label>
-          <select id="superDays" onchange="calcCost()">
-            <option value="1">1일 — 900,000원</option>
-            <option value="2">2일 — 1,600,000원</option>
-            <option value="3">3일 — 2,400,000원</option>
-            <option value="4">4일 — 3,200,000원</option>
-            <option value="5">5일 — 4,000,000원</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="sec-card">
-      <div class="sec-head amber">폐기물</div>
-      <div class="sec-body">
-        <div class="field">
-          <label>폐기물 운반 거리 (출발지: 인천)</label>
-          <select id="distZone" onchange="calcCost()">
-            <option value="">선택</option>
-            <option value="수도권">수도권 — 300,000원</option>
-            <option value="60~110km">60~110km — 400,000원</option>
-            <option value="110~160km">110~160km — 500,000원</option>
-            <option value="160~210km">160~210km — 600,000원</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>폐기물 자재별 면적 입력 (자재비·처리비 동시 자동계산)</label>
-          <div style="background:var(--gray-light);border-radius:8px;overflow:hidden;margin-top:4px;">
-            <div style="display:grid;grid-template-columns:1fr 80px 90px 90px;gap:6px;padding:8px 10px;background:var(--teal);color:white;font-size:11px;font-weight:600;">
-              <span>자재</span><span style="text-align:center">면적(㎡)</span><span style="text-align:right">자재비</span><span style="text-align:right">처리비</span>
-            </div>
-            <div id="wasteRows">
-              <div class="waste-row" data-key="tex" style="display:grid;grid-template-columns:1fr 80px 90px 90px;gap:6px;padding:8px 10px;align-items:center;border-bottom:1px solid var(--border);">
-                <label style="font-size:13px;color:var(--text);text-transform:none;letter-spacing:0;margin:0">텍스</label>
-                <input type="number" class="waste-area" placeholder="㎡" style="padding:6px 8px;font-size:12px" oninput="calcCost()">
-                <span class="mat-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
-                <span class="waste-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
-              </div>
-              <div class="waste-row" data-key="slate" style="display:grid;grid-template-columns:1fr 80px 90px 90px;gap:6px;padding:8px 10px;align-items:center;border-bottom:1px solid var(--border);">
-                <label style="font-size:13px;color:var(--text);text-transform:none;letter-spacing:0;margin:0">슬레이트</label>
-                <input type="number" class="waste-area" placeholder="㎡" style="padding:6px 8px;font-size:12px" oninput="calcCost()">
-                <span class="mat-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
-                <span class="waste-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
-              </div>
-              <div class="waste-row" data-key="cub" style="display:grid;grid-template-columns:1fr 80px 90px 90px;gap:6px;padding:8px 10px;align-items:center;border-bottom:1px solid var(--border);">
-                <label style="font-size:13px;color:var(--text);text-transform:none;letter-spacing:0;margin:0">큐비클</label>
-                <input type="number" class="waste-area" placeholder="㎡" style="padding:6px 8px;font-size:12px" oninput="calcCost()">
-                <span class="mat-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
-                <span class="waste-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
-              </div>
-              <div class="waste-row" data-key="bam" style="display:grid;grid-template-columns:1fr 80px 90px 90px;gap:6px;padding:8px 10px;align-items:center;">
-                <label style="font-size:13px;color:var(--text);text-transform:none;letter-spacing:0;margin:0">밤라이트</label>
-                <input type="number" class="waste-area" placeholder="㎡" style="padding:6px 8px;font-size:12px" oninput="calcCost()">
-                <span class="mat-cost" style="font-size:12px;text-align:right;color:var(--teal);font-weight:600">-</span>
-                <span class="waste-cost" style="font-size:12px;text-align:right;color:var(--amber);font-weight:600">-</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-
-    <!-- 원가 계산 결과 -->
-    <div class="sec-card">
-      <div class="sec-head blue">원가 계산 (초안)</div>
-      <div class="sec-body">
-        <table class="cost-table">
-          <tr><td>자재비</td><td id="r_mat" class="pending">-</td></tr>
-          <tr><td>폐기물 처리비</td><td id="r_waste" class="pending">-</td></tr>
-          <tr><td>폐기물 운반비 <small style="color:var(--amber)">🔶임시</small></td><td id="r_transport" class="pending">-</td></tr>
-          <tr><td>석면조사비</td><td id="r_survey">-</td></tr>
-          <tr><td>후측정비</td><td id="r_post">-</td></tr>
-          <tr><td>감리비</td><td id="r_super">-</td></tr>
-          <tr><td>일반관리비 (10%)</td><td id="r_mgmt">-</td></tr>
-          <tr class="total-row"><td>원가 합계 (임시)</td><td id="r_total">-</td></tr>
-          <tr style="border-top:1px solid var(--border)"><td>공사금액</td><td id="r_contract">-</td></tr>
-          <tr id="profitRow"><td>예상 이익</td><td id="r_profit">-</td></tr>
-        </table>
-      </div>
-    </div>
-
-    <div style="display:flex;gap:10px;padding:4px 0 8px;">
-      <button class="btn-submit" style="width:auto;padding:10px 20px;font-size:13px;background:#757575" onclick="showTab('b')">← 공사상세</button>
-      <button class="btn-submit" style="width:auto;padding:10px 20px;font-size:13px;flex:1" onclick="showTab('confirm')">다음 → 확인/제출</button>
-    </div>
-  </div>
-
-  <!-- 확인/제출 탭 -->
+  <!-- ========== 확인/제출 ========== -->
   <div class="tab-pane" id="tab-confirm">
-    <div class="sec-card">
-      <div class="sec-head teal">제출 전 확인</div>
-      <div class="sec-body">
-        <table class="cost-table" id="confirmTable" style="font-size:13px">
-        </table>
+    <div class="card" id="confirmCard">
+      <div class="card-head teal">제출 전 확인</div>
+      <div class="card-body">
+        <table class="cost-tbl" id="confirmTbl"></table>
       </div>
     </div>
-    <div id="loadingScreen" class="loading">
+    <div class="loading" id="loadingScreen">
       <div class="spinner"></div>
-      <div style="color:var(--text-sub);font-size:13px">작업지시서 제출 중...</div>
+      <div style="color:var(--sub);font-size:13px">제출 중...</div>
     </div>
-    <div id="doneScreen" class="done-screen">
+    <div class="done" id="doneScreen">
       <div class="done-icon">✓</div>
-      <div style="font-size:13px;color:var(--text-sub)">프로젝트번호가 발급되었습니다</div>
-      <div class="done-proj" id="doneProjNum"></div>
-      <div class="done-sub" id="doneProjName"></div>
-      <div style="margin-top:12px;font-size:12px;color:var(--text-sub)" id="doneExtra"></div>
-      <button class="btn-new" onclick="resetForm()">새 작업지시서 작성</button>
+      <div style="font-size:12px;color:var(--sub)">프로젝트번호 발급 완료</div>
+      <div class="done-num" id="doneNum"></div>
+      <div style="font-size:13px;color:var(--sub);margin-top:4px" id="doneName"></div>
+      <div style="font-size:11px;color:var(--amber);margin-top:8px" id="doneExtra"></div>
+      <button class="btn" style="margin-top:20px;width:auto;padding:10px 24px;font-size:14px" onclick="resetForm()">새 작업지시서 작성</button>
     </div>
   </div>
+
 </div>
 
-<!-- 제출 버튼 (확인 탭에서만) -->
 <div class="submit-wrap" id="submitWrap" style="display:none">
-  <button class="btn-submit" id="btnSubmit" onclick="submitForm()">작업지시서 제출</button>
+  <button class="btn" id="btnSubmit" onclick="submitForm()">작업지시서 제출</button>
 </div>
 
 <script>
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz2YGdH39-f1xM0icBsB7doVWwWrDxSgVrZOKRF8THTvCtEXSHbeQZYjqbVZyPRSRbCcA/exec';
 
 const MAT = {
-  tex:   {matPer:2000, kgPer:8,  tonPrice:350000, minTon:1},
-  slate: {matPer:1000, kgPer:10, tonPrice:250000, minTon:1},
-  cub:   {matPer:2000, kgPer:10, tonPrice:400000, minTon:1},
-  bam:   {matPer:2000, kgPer:10, tonPrice:400000, minTon:1}
+  tex:   {mp:2000, kp:8,  tp:350000, mt:1},
+  slate: {mp:1000, kp:10, tp:250000, mt:1},
+  cub:   {mp:2000, kp:10, tp:400000, mt:1},
+  bam:   {mp:2000, kp:10, tp:400000, mt:1}
 };
-const TRANSPORT = {'수도권':300000,'60~110km':400000,'110~160km':500000,'160~210km':600000};
+const TRANS = {'수도권':300000,'60~110km':400000,'110~160km':500000,'160~210km':600000};
 
-// 탭 전환
-function showTab(id) {
+let isTest = false;
+
+// 테스트 모드
+function onTestToggle() {
+  isTest = document.getElementById('testToggle').checked;
+  document.getElementById('testBadge').style.display = isTest ? 'inline-block' : 'none';
+  document.querySelector('.test-bar').style.background = isTest ? '#FFCDD2' : '#FFF3E0';
+  updatePreview();
+}
+
+// 탭 이동
+function goTab(id) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  const btns = document.querySelectorAll('.tab-btn');
-  const map = {a:0, b:1, c:2, confirm:3};
-  if (map[id] !== undefined) btns[map[id]].classList.add('active');
+  const map = {a:0,b:1,c:2,confirm:3};
+  if (map[id] !== undefined) document.querySelectorAll('.tab-btn')[map[id]].classList.add('active');
   document.getElementById('submitWrap').style.display = id === 'confirm' ? 'block' : 'none';
-  if (id === 'confirm') buildConfirmTable();
+  if (id === 'confirm') buildConfirm();
+  window.scrollTo(0,0);
 }
 
-// 태그 토글
-function toggleTag(el, mode, groupId) {
-  if (mode === 'multi') {
-    el.classList.toggle('selected');
-  } else {
-    const parent = groupId ? document.getElementById(groupId) : el.parentElement;
-    parent.querySelectorAll('.tag').forEach(t => t.classList.remove('selected'));
-    el.classList.add('selected');
-  }
+// 태그
+function togTag(el) { el.classList.toggle('sel'); }
+function togSingle(el, gid) {
+  document.querySelectorAll('#' + gid + ' .tag').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
 }
-
-// 조건부 표시
-function toggleConditional(id, show) {
+function toggleCond(id, show) {
   const el = document.getElementById(id);
   if (el) el.classList.toggle('show', show);
 }
 
-// 덧방 종류 기타 처리
-document.getElementById('overCoatType').addEventListener('change', function() {
-  document.getElementById('overCoatOther').style.display = this.value === 'other' ? 'block' : 'none';
-});
+// 공사명 기타
+function onWorkTitleChange() {
+  const v = document.getElementById('workTitle').value;
+  document.getElementById('workTitleOther').style.display = v === 'other' ? 'block' : 'none';
+}
 
-// 석면조사비 직접입력
+// 감리 A탭 → B탭 연동
+function onSuperChange() {
+  const v = document.getElementById('superYnA').value;
+  const bField = document.getElementById('superYnB');
+  bField.value = v === '유' ? '유 (감리 있음)' : '무 (감리 없음)';
+  toggleCond('superDetail', v === '유');
+  calcCost();
+}
+
+// 석면조사
+function onSurveyChange() {
+  const v = document.getElementById('surveyYn').value;
+  toggleCond('surveyDetail', v === '유');
+  calcCost();
+}
 document.getElementById('surveyAmt').addEventListener('change', function() {
   document.getElementById('surveyCustom').style.display = this.value === 'custom' ? 'block' : 'none';
   calcCost();
 });
 
+// 발주자 연락처 하이픈 자동삽입
+function fmtPhone(el) {
+  let v = el.value.replace(/\D/g, '');
+  if (v.length <= 3) el.value = v;
+  else if (v.length <= 7) el.value = v.slice(0,3) + '-' + v.slice(3);
+  else el.value = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
+}
+
 // 업체 검색
-let searchTimer;
+let srchTimer;
 function searchClient(val) {
-  clearTimeout(searchTimer);
-  const box = document.getElementById('searchResult');
-  if (!val || val.length < 1) { box.style.display = 'none'; return; }
-  searchTimer = setTimeout(function() {
+  clearTimeout(srchTimer);
+  const box = document.getElementById('srchResult');
+  if (!val || val.length < 1) { box.style.display='none'; return; }
+  srchTimer = setTimeout(function() {
     fetch(SCRIPT_URL + '?action=searchClient&name=' + encodeURIComponent(val))
       .then(r => r.json())
       .then(data => {
-        if (!data.clients || data.clients.length === 0) { box.style.display='none'; return; }
+        if (!data.clients || !data.clients.length) { box.style.display='none'; return; }
         box.innerHTML = data.clients.map(c =>
-          '<div class="search-item" onclick="selectClient(\'' + c.name + '\',\'' + c.num + '\',\'' + c.biz + '\')">' +
-          '<span>' + c.name + '</span><span class="search-num">' + c.num + ' · ' + c.biz + '</span></div>'
+          '<div class="srch-item" onmousedown="selectClient(\'' + c.name + '\',\'' + c.biz + '\')">' +
+          '<span>' + c.name + '</span><span class="srch-num">' + c.num + ' · ' + c.biz + '</span></div>'
         ).join('');
         box.style.display = 'block';
-      }).catch(() => {});
+      }).catch(()=>{});
   }, 300);
 }
-
-function selectClient(name, num, biz) {
+function hideSearch() { setTimeout(()=>{ document.getElementById('srchResult').style.display='none'; },200); }
+function selectClient(name, biz) {
   document.getElementById('clientName').value = name;
-  document.getElementById('searchResult').style.display = 'none';
+  document.getElementById('srchResult').style.display = 'none';
   if (biz) document.getElementById('bizType').value = biz;
   updatePreview();
 }
 
 // 프로젝트번호 미리보기
-let previewTimer;
+let pvTimer;
 function updatePreview() {
   const name = document.getElementById('clientName').value.trim();
   const biz  = document.getElementById('bizType').value;
   const code = document.getElementById('workCode').value;
   const addr = document.getElementById('address').value.trim();
+  const prev = document.getElementById('projPreview');
 
-  if (!name || !biz || !code) {
-    document.getElementById('projPreview').style.display = 'none';
-    document.getElementById('projName').value = '';
+  if (isTest) {
+    prev.textContent = '00000_??_TEST (테스트 모드)';
+    prev.style.display = 'block';
+    prev.className = 'proj-preview test-mode';
+    document.getElementById('projNum').value = 'TEST MODE';
     return;
   }
-  clearTimeout(previewTimer);
-  previewTimer = setTimeout(function() {
+
+  if (!name || !biz || !code) { prev.style.display='none'; return; }
+  clearTimeout(pvTimer);
+  pvTimer = setTimeout(function() {
     fetch(SCRIPT_URL + '?action=previewProjNum&clientName=' + encodeURIComponent(name) +
           '&bizType=' + encodeURIComponent(biz) + '&workCode=' + encodeURIComponent(code))
       .then(r => r.json())
       .then(data => {
-        const prev = document.getElementById('projPreview');
         prev.textContent = data.previewNum + (data.isNew ? '  (신규 업체)' : '');
         prev.style.display = 'block';
-        document.getElementById('projName').value = '[현장×' + code + '] ' + name + (addr ? ' ' + addr : '');
-      }).catch(() => {});
+        prev.className = 'proj-preview';
+      }).catch(()=>{});
   }, 500);
 }
 
-// 날씨 조회
-function loadWeather() {
-  const date = document.getElementById('workDate').value;
-  if (!date) return;
-  const box = document.getElementById('weatherBox');
-  const d = new Date(date);
-  const today = new Date();
-  const diff = Math.ceil((d - today) / (1000*60*60*24));
-  if (diff < 0) { box.style.display='none'; return; }
-  if (diff <= 7) {
-    box.textContent = '기상청 API 연동 예정 — 예정일까지 ' + diff + '일 남음';
-    box.style.display = 'block';
-  } else {
-    box.textContent = '예정일까지 ' + diff + '일 남음 (날씨 예보는 7일 이내에 확인 가능)';
-    box.style.display = 'block';
-  }
+// 공사금액 공급가액 환산
+function getSupplyAmt() {
+  const amt = parseFloat(document.getElementById('contractAmt').value) || 0;
+  const vat = document.getElementById('vatType').value;
+  return vat === 'inclusive' ? Math.round(amt / 1.1) : amt;
 }
+
+document.getElementById('contractAmt').addEventListener('input', function() {
+  const supply = getSupplyAmt();
+  const note = document.getElementById('amtNote');
+  if (supply && document.getElementById('vatType').value === 'inclusive') {
+    note.textContent = '공급가액 (부가세 제외): ' + supply.toLocaleString('ko-KR') + '원';
+  } else {
+    note.textContent = '';
+  }
+  calcCost();
+});
+document.getElementById('vatType').addEventListener('change', function() {
+  document.getElementById('contractAmt').dispatchEvent(new Event('input'));
+});
 
 // 원가 계산
 function fmt(n) { return n ? Math.round(n).toLocaleString('ko-KR') + '원' : '-'; }
 function calcCost() {
-  const contract = parseFloat(document.getElementById('contractAmt').value) || 0;
-  const mgmt = contract * 0.1;
+  const supply = getSupplyAmt();
+  const mgmt = supply * 0.1;
   document.getElementById('r_mgmt').textContent = fmt(mgmt);
-  document.getElementById('r_contract').textContent = fmt(contract);
+  document.getElementById('r_contract').textContent = fmt(supply);
 
-  // 자재비 + 폐기물처리비
-  let matTotal = 0, wasteTotal = 0;
   const keys = ['tex','slate','cub','bam'];
-  document.querySelectorAll('.waste-row').forEach((row, i) => {
-    const key = keys[i];
-    const area = parseFloat(row.querySelector('.waste-area').value) || 0;
-    const m = MAT[key];
-    const mat = area * m.matPer;
-    const tons = Math.max(area * m.kgPer / 1000, area > 0 ? m.minTon : 0);
-    const waste = tons * m.tonPrice;
-    row.querySelector('.mat-cost').textContent = area ? fmt(mat) : '-';
-    row.querySelector('.waste-cost').textContent = area ? fmt(waste) : '-';
-    matTotal += mat;
-    wasteTotal += waste;
+  let matT=0, wasteT=0;
+  document.querySelectorAll('.wrow').forEach((row,i) => {
+    const k = keys[i], m = MAT[k];
+    const area = parseFloat(row.querySelector('.w-area').value)||0;
+    const mat = area*m.mp;
+    const tons = area>0 ? Math.max(area*m.kp/1000, m.mt) : 0;
+    const waste = tons*m.tp;
+    row.querySelector('.m-cost').textContent = area ? fmt(mat) : '-';
+    row.querySelector('.w-cost').textContent = area ? fmt(waste) : '-';
+    matT+=mat; wasteT+=waste;
   });
-  document.getElementById('r_mat').textContent = fmt(matTotal);
-  document.getElementById('r_waste').textContent = fmt(wasteTotal);
+  document.getElementById('r_mat').textContent = fmt(matT);
+  document.getElementById('r_waste').textContent = fmt(wasteT);
 
-  // 운반비
-  const distKey = document.getElementById('distZone').value;
-  const transport = TRANSPORT[distKey] || 0;
+  const transport = TRANS[document.getElementById('distZone').value]||0;
   document.getElementById('r_transport').textContent = fmt(transport);
 
-  // 석면조사비
-  let survey = 0;
-  if (document.getElementById('surveyYn').checked) {
-    const sel = document.getElementById('surveyAmt').value;
-    survey = sel === 'custom' ? (parseFloat(document.getElementById('surveyCustom').value)||0) : (parseFloat(sel)||0);
+  let survey=0;
+  if (document.getElementById('surveyYn').value==='유') {
+    const s = document.getElementById('surveyAmt').value;
+    survey = s==='custom' ? (parseFloat(document.getElementById('surveyCustom').value)||0) : (parseFloat(s)||0);
   }
   document.getElementById('r_survey').textContent = fmt(survey);
 
-  // 후측정
-  const post = document.getElementById('postMeasYn').checked ? 300000 : 0;
+  const post = document.getElementById('postMeasYn').value==='유' ? 300000 : 0;
   document.getElementById('r_post').textContent = fmt(post);
 
-  // 감리
-  let superFee = 0;
-  if (document.getElementById('superYn').checked) {
-    const d = parseInt(document.getElementById('superDays').value) || 1;
-    superFee = d === 1 ? 900000 : d * 800000;
+  let superFee=0;
+  if (document.getElementById('superYnA').value==='유') {
+    const d = parseInt(document.getElementById('superDays').value)||1;
+    superFee = d===1 ? 900000 : d*800000;
   }
   document.getElementById('r_super').textContent = fmt(superFee);
 
-  const total = matTotal + wasteTotal + transport + survey + post + superFee + mgmt;
+  const total = matT+wasteT+transport+survey+post+superFee+mgmt;
   document.getElementById('r_total').textContent = fmt(total);
 
-  const profit = contract - total;
+  const profit = supply - total;
   const pr = document.getElementById('r_profit');
   const prow = document.getElementById('profitRow');
-  if (contract > 0 && total > 0) {
-    pr.textContent = fmt(Math.abs(profit)) + (profit >= 0 ? ' ▲' : ' ▼');
-    pr.style.color = profit >= 0 ? 'var(--teal)' : 'var(--red)';
-    prow.style.background = profit >= 0 ? 'var(--teal-light)' : 'var(--red-light)';
-  } else {
-    pr.textContent = '-';
-  }
+  if (supply>0 && total>0) {
+    pr.textContent = fmt(Math.abs(profit)) + (profit>=0?' ▲':' ▼');
+    pr.style.color = profit>=0?'var(--teal)':' var(--red)';
+    prow.style.background = profit>=0?'var(--teal-l)':' var(--red-l)';
+  } else { pr.textContent='-'; }
 }
 
-// 확인 테이블 빌드
-function buildConfirmTable() {
+// 확인 테이블
+function buildConfirm() {
+  const wt = document.getElementById('workTitle').value;
+  const workName = wt==='other' ? document.getElementById('workTitleOther').value : wt;
   const rows = [
-    ['프로젝트번호 (예상)', document.getElementById('projPreview').textContent || '입력 필요'],
-    ['사업자', document.getElementById('bizType').value || '미선택'],
-    ['발주자', document.getElementById('clientName').value || '미입력'],
-    ['현장 주소', document.getElementById('address').value || '미입력'],
-    ['공사 내용', document.getElementById('workContent').value || '미입력'],
-    ['공사금액', fmt(parseFloat(document.getElementById('contractAmt').value)||0)],
-    ['영업담당자', document.getElementById('salesPerson').value || '미선택'],
-    ['공사예정일', document.getElementById('workDate').value || '미입력'],
+    ['사업자', document.getElementById('bizType').value||'미선택'],
+    ['발주자', document.getElementById('clientName').value||'미입력'],
+    ['1. 공사명', workName||'미선택'],
+    ['2. 주소', document.getElementById('address').value||'미입력'],
+    ['3. 공사내용', document.getElementById('workContent').value||'미입력'],
+    ['4. 공사범위', document.getElementById('workScope').value||'미입력'],
+    ['5. 감리 및 측정', document.getElementById('superYnA').value||'미선택'],
+    ['6. 폐기물', document.getElementById('wasteVendor').value||'미선택'],
+    ['7. 발주자 담당자', (document.getElementById('clientPersonName').value||'') + ' ' + (document.getElementById('clientPhone').value||'')],
+    ['8. 영업 담당자', document.getElementById('salesPerson').value||'미선택'],
+    ['9. 특이사항', document.getElementById('note').value||'없음'],
+    ['10. 공사예정일', document.getElementById('workDate').value||'미입력'],
+    ['공사금액', fmt(getSupplyAmt()) + (document.getElementById('vatType').value==='inclusive'?' (부가세 포함 → 환산)':'')],
     ['원가합계(임시)', document.getElementById('r_total').textContent],
   ];
-  const t = document.getElementById('confirmTable');
-  t.innerHTML = rows.map(r =>
-    '<tr><td style="color:var(--text-sub)">' + r[0] + '</td><td style="text-align:right;font-weight:500">' + r[1] + '</td></tr>'
+  document.getElementById('confirmTbl').innerHTML = rows.map(r =>
+    '<tr><td style="color:var(--sub)">' + r[0] + '</td><td style="text-align:right;font-weight:500">' + r[1] + '</td></tr>'
   ).join('');
 }
 
-// 폼 수집
-function collectData() {
-  const getTagsText = (id) => {
-    return Array.from(document.querySelectorAll('#' + id + ' .tag.selected')).map(t => t.textContent).join(', ');
-  };
-  const overCoatYn = document.querySelector('#overCoatYn .tag.selected')?.textContent || '';
-  const overCoatType = document.getElementById('overCoatType').value === 'other'
+// 데이터 수집
+function collect() {
+  const wt = document.getElementById('workTitle').value;
+  const workName = wt==='other' ? document.getElementById('workTitleOther').value : wt;
+  const getTags = id => Array.from(document.querySelectorAll('#'+id+' .tag.sel')).map(t=>t.textContent).join(', ');
+  const overCoatType = document.getElementById('overCoatType').value==='other'
     ? document.getElementById('overCoatOther').value
     : document.getElementById('overCoatType').value;
-
-  const surveyChecked = document.getElementById('surveyYn').checked;
-  const surveyAmt = surveyChecked
-    ? (document.getElementById('surveyAmt').value === 'custom'
+  const surveyAmt = document.getElementById('surveyYn').value==='유'
+    ? (document.getElementById('surveyAmt').value==='custom'
         ? document.getElementById('surveyCustom').value
         : document.getElementById('surveyAmt').value)
     : '0';
 
   return {
     action: 'saveWorkOrder',
+    isTest: isTest,
     bizType: document.getElementById('bizType').value,
     workCode: document.getElementById('workCode').value,
     clientName: document.getElementById('clientName').value.trim(),
+    workTitle: workName,
     address: document.getElementById('address').value.trim(),
     workContent: document.getElementById('workContent').value,
-    contractAmt: document.getElementById('contractAmt').value,
+    workScope: document.getElementById('workScope').value,
+    superYnA: document.getElementById('superYnA').value,
+    wasteVendor: document.getElementById('wasteVendor').value,
+    clientPersonName: document.getElementById('clientPersonName').value,
     clientPhone: document.getElementById('clientPhone').value,
     salesPerson: document.getElementById('salesPerson').value,
-    workDate: document.getElementById('workDate').value,
     note: document.getElementById('note').value,
+    workDate: document.getElementById('workDate').value,
+    contractAmt: getSupplyAmt(),
+    vatType: document.getElementById('vatType').value,
     buildingType: document.getElementById('buildingType').value,
     buildYear: document.getElementById('buildYear').value,
     elevator: document.getElementById('elevator').value,
     floorHeight: document.getElementById('floorHeight').value,
-    workScope: document.getElementById('workScope').value,
-    workArea: document.getElementById('workArea').value,
-    asbestosArea: getTagsText('asbestosArea'),
-    overCoatYn: overCoatYn,
+    asbestosArea: getTags('asbestosArea'),
+    overCoatYn: document.querySelector('#overCoatYn .tag.sel')?.textContent||'',
     overCoatType: overCoatType,
     reConstruct: document.getElementById('reConstruct').value,
-    estimatedPeriod: document.getElementById('estimatedPeriod').value,
+    estPeriod: document.getElementById('estPeriod').value,
     contactRoute: document.getElementById('contactRoute').value,
     workPurpose: document.getElementById('workPurpose').value,
     siteStatus: document.getElementById('siteStatus').value,
-    siteLimit: getTagsText('siteLimit'),
+    siteLimit: getTags('siteLimit'),
     complaintRisk: document.getElementById('complaintRisk').value,
     urgentYn: document.getElementById('urgentYn').value,
     clientRequest: document.getElementById('clientRequest').value,
@@ -929,97 +946,89 @@ function collectData() {
     satisfaction: document.getElementById('satisfaction').value,
     tip: document.getElementById('tip').value,
     photoYn: document.getElementById('photoYn').value,
-    surveyYn: surveyChecked ? 'Y' : 'N',
+    surveyYn: document.getElementById('surveyYn').value==='유'?'Y':'N',
     surveyAmt: surveyAmt,
-    postMeasYn: document.getElementById('postMeasYn').checked ? 'Y' : 'N',
-    superYn: document.getElementById('superYn').checked ? 'Y' : 'N',
+    postMeasYn: document.getElementById('postMeasYn').value==='유'?'Y':'N',
     superDays: document.getElementById('superDays').value,
     distZone: document.getElementById('distZone').value,
-    texArea: document.querySelectorAll('.waste-area')[0].value,
-    slateArea: document.querySelectorAll('.waste-area')[1].value,
-    cubArea: document.querySelectorAll('.waste-area')[2].value,
-    bamArea: document.querySelectorAll('.waste-area')[3].value,
-    wasteVendor: '',
+    texArea: document.querySelectorAll('.w-area')[0].value,
+    slateArea: document.querySelectorAll('.w-area')[1].value,
+    cubArea: document.querySelectorAll('.w-area')[2].value,
+    bamArea: document.querySelectorAll('.w-area')[3].value,
     warranty: '',
   };
 }
 
-// 유효성 검사
-function validate(data) {
-  if (!data.bizType) return '사업자 구분을 선택해주세요.';
-  if (!data.workCode) return '작업형태 코드를 선택해주세요.';
-  if (!data.clientName) return '발주자 성명 또는 업체명을 입력해주세요.';
-  if (!data.address) return '현장 주소를 입력해주세요.';
-  if (!data.workContent) return '공사 내용을 입력해주세요.';
-  if (!data.contractAmt || data.contractAmt <= 0) return '공사금액을 입력해주세요.';
-  if (!data.salesPerson) return '영업 담당자를 선택해주세요.';
+// 유효성
+function validate(d) {
+  if (!d.bizType) return '사업자 구분을 선택해주세요.';
+  if (!d.workCode && !isTest) return '작업형태 코드를 선택해주세요.';
+  if (!d.clientName) return '발주자 성명 또는 업체명을 입력해주세요.';
+  if (!d.workTitle) return '공사명을 선택해주세요.';
+  if (!d.address) return '현장 주소를 입력해주세요.';
+  if (!d.workContent) return '공사내용을 입력해주세요.';
+  if (!d.salesPerson) return '영업 담당자를 선택해주세요.';
   return null;
 }
 
 // 제출
 function submitForm() {
-  const data = collectData();
+  const data = collect();
   const err = validate(data);
-  if (err) {
-    showAlert(err, 'error');
-    return;
-  }
+  if (err) { showAlert(err,'err'); return; }
 
-  document.getElementById('tab-confirm').querySelector('.sec-card').style.display = 'none';
-  document.getElementById('loadingScreen').style.display = 'block';
-  document.getElementById('submitWrap').style.display = 'none';
+  document.getElementById('confirmCard').style.display='none';
+  document.getElementById('loadingScreen').style.display='block';
+  document.getElementById('submitWrap').style.display='none';
 
-  fetch(SCRIPT_URL, {
-    method: 'POST',
-    body: JSON.stringify(data)
-  })
-  .then(r => r.json())
-  .then(result => {
-    document.getElementById('loadingScreen').style.display = 'none';
-    if (result.success) {
-      document.getElementById('doneScreen').style.display = 'block';
-      document.getElementById('doneProjNum').textContent = result.projNum;
-      document.getElementById('doneProjName').textContent = result.projName;
-      document.getElementById('doneExtra').textContent = result.isNewClient ? '신규 업체로 등록되었습니다.' : '';
-    } else {
-      document.getElementById('tab-confirm').querySelector('.sec-card').style.display = 'block';
-      document.getElementById('submitWrap').style.display = 'block';
-      showAlert('제출 오류: ' + (result.error || '알 수 없는 오류'), 'error');
-    }
-  })
-  .catch(e => {
-    document.getElementById('loadingScreen').style.display = 'none';
-    document.getElementById('tab-confirm').querySelector('.sec-card').style.display = 'block';
-    document.getElementById('submitWrap').style.display = 'block';
-    showAlert('네트워크 오류가 발생했습니다. 다시 시도해주세요.', 'error');
-  });
-}
-
-// 폼 초기화
-function resetForm() {
-  document.querySelectorAll('input[type=text],input[type=number],input[type=tel],input[type=date],textarea').forEach(el => el.value = '');
-  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
-  document.querySelectorAll('.tag.selected').forEach(t => t.classList.remove('selected'));
-  document.querySelectorAll('.conditional.show').forEach(c => c.classList.remove('show'));
-  document.querySelectorAll('.toggle input').forEach(t => t.checked = false);
-  document.getElementById('projPreview').style.display = 'none';
-  document.getElementById('doneScreen').style.display = 'none';
-  document.getElementById('tab-confirm').querySelector('.sec-card').style.display = 'block';
-  showTab('a');
-}
-
-// 알림
-function showAlert(msg, type) {
-  const box = document.getElementById('alertBox');
-  box.textContent = msg;
-  box.className = 'alert-box ' + type;
-  box.style.display = 'block';
-  setTimeout(() => { box.style.display = 'none'; }, 5000);
-  window.scrollTo(0,0);
+  fetch(SCRIPT_URL, {method:'POST', body:JSON.stringify(data)})
+    .then(r=>r.json())
+    .then(res=>{
+      document.getElementById('loadingScreen').style.display='none';
+      if (res.success) {
+        document.getElementById('doneScreen').style.display='block';
+        document.getElementById('doneNum').textContent = res.projNum;
+        document.getElementById('doneName').textContent = res.projName;
+        document.getElementById('doneExtra').textContent =
+          res.isTest ? '테스트 데이터로 저장되었습니다' :
+          (res.isNewClient ? '신규 업체로 등록되었습니다' : '');
+      } else {
+        document.getElementById('confirmCard').style.display='block';
+        document.getElementById('submitWrap').style.display='block';
+        showAlert('제출 오류: '+(res.error||'알 수 없는 오류'),'err');
+      }
+    })
+    .catch(()=>{
+      document.getElementById('loadingScreen').style.display='none';
+      document.getElementById('confirmCard').style.display='block';
+      document.getElementById('submitWrap').style.display='block';
+      showAlert('네트워크 오류. 다시 시도해주세요.','err');
+    });
 }
 
 // 초기화
-document.getElementById('receiveDate').value = new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'2-digit',day:'2-digit'});
+function resetForm() {
+  document.querySelectorAll('input:not([type=checkbox]),textarea').forEach(el=>{if(!el.readOnly)el.value=''});
+  document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+  document.querySelectorAll('.tag.sel').forEach(t=>t.classList.remove('sel'));
+  document.querySelectorAll('.cond.show').forEach(c=>c.classList.remove('show'));
+  document.getElementById('projPreview').style.display='none';
+  document.getElementById('doneScreen').style.display='none';
+  document.getElementById('confirmCard').style.display='block';
+  document.getElementById('amtNote').textContent='';
+  goTab('a');
+}
+
+function showAlert(msg, type) {
+  const b=document.getElementById('alert-box');
+  b.textContent=msg; b.className='alert '+type; b.style.display='block';
+  setTimeout(()=>{b.style.display='none';},5000);
+  window.scrollTo(0,0);
+}
+
+// 초기값
+document.getElementById('recvDate').value=new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
+document.getElementById('superYnB').value='무 (A탭에서 선택하세요)';
 </script>
 </body>
 </html>
