@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta property="og:title" content="작업지시서">
-<meta property="og:description" content="㈜삼육오안전관리 작업지시서">
+<meta property="og:description" content="작업지시서">
 <title>작업지시서</title>
 <style>
 :root {
@@ -418,9 +418,32 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
 
     <div class="card">
+      <div class="card-head blue">예상 노무비 / 외주장비비</div>
+      <div class="card-body">
+        <div class="row2">
+          <div class="field">
+            <label>예상 투입인원 (명)</label>
+            <input type="number" id="estWorkers" placeholder="예) 4" oninput="calcCost()">
+          </div>
+          <div class="field">
+            <label>예상 노무비 (자동계산)</label>
+            <input id="estLaborAmt" class="auto-f" readonly placeholder="인원 × 250,000원">
+          </div>
+        </div>
+        <div class="field">
+          <label>예상 외주장비비 (원) <small style="color:var(--sub);font-weight:400">스카이/사다리차/지게차 등 합산</small></label>
+          <input type="number" id="estEquipAmt" placeholder="예) 1100000" oninput="calcCost()">
+        </div>
+        <div style="font-size:11px;color:var(--amber);margin-top:4px">🔶 임시값 — 작업일보 완료 후 실제값으로 확정됩니다</div>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="card-head blue">원가 계산 결과 (초안)</div>
       <div class="card-body">
         <table class="cost-tbl">
+          <tr><td>예상 노무비 <small class="pend">🔶임시</small></td><td id="r_labor" class="pend">-</td></tr>
+          <tr><td>예상 외주장비비 <small class="pend">🔶임시</small></td><td id="r_equip" class="pend">-</td></tr>
           <tr><td>자재비 (확정)</td><td id="r_mat">-</td></tr>
           <tr><td>폐기물 처리비 <small class="pend">🔶임시</small></td><td id="r_waste" class="pend">-</td></tr>
           <tr><td>폐기물 운반비 <small class="pend">🔶임시</small></td><td id="r_transport" class="pend">-</td></tr>
@@ -818,6 +841,16 @@ function calcCost() {
   document.getElementById('r_mgmt').textContent = fmt(mgmt);
   document.getElementById('r_contract').textContent = fmt(supply);
 
+  // 노무비
+  const workers = parseFloat(document.getElementById('estWorkers').value)||0;
+  const laborAmt = workers * 250000;
+  document.getElementById('estLaborAmt').value = laborAmt ? laborAmt.toLocaleString('ko-KR') + '원' : '';
+  document.getElementById('r_labor').textContent = fmt(laborAmt);
+
+  // 외주장비비
+  const equipAmt = parseFloat(document.getElementById('estEquipAmt').value)||0;
+  document.getElementById('r_equip').textContent = fmt(equipAmt);
+
   const keys = ['tex','slate','cub','bam'];
   let matT=0, wasteT=0;
   document.querySelectorAll('.wrow').forEach((row,i) => {
@@ -853,7 +886,7 @@ function calcCost() {
   }
   document.getElementById('r_super').textContent = fmt(superFee);
 
-  const total = matT+wasteT+transport+survey+post+superFee+mgmt;
+  const total = laborAmt+equipAmt+matT+wasteT+transport+survey+post+superFee+mgmt;
   document.getElementById('r_total').textContent = fmt(total);
 
   const profit = supply - total;
@@ -884,6 +917,8 @@ function buildConfirm() {
     ['9. 특이사항', document.getElementById('note').value||'없음'],
     ['10. 공사예정일', document.getElementById('workDate').value||'미입력'],
     ['공사금액', fmt(getSupplyAmt()) + (document.getElementById('vatType').value==='inclusive'?' (부가세 포함 → 환산)':'')],
+    ['예상 노무비', document.getElementById('r_labor').textContent],
+    ['예상 외주장비비', document.getElementById('r_equip').textContent],
     ['원가합계(임시)', document.getElementById('r_total').textContent],
   ];
   document.getElementById('confirmTbl').innerHTML = rows.map(r =>
@@ -956,6 +991,9 @@ function collect() {
     cubArea: document.querySelectorAll('.w-area')[2].value,
     bamArea: document.querySelectorAll('.w-area')[3].value,
     warranty: '',
+    estWorkers: document.getElementById('estWorkers').value,
+    estLaborAmt: (parseFloat(document.getElementById('estWorkers').value)||0) * 250000,
+    estEquipAmt: document.getElementById('estEquipAmt').value,
   };
 }
 
