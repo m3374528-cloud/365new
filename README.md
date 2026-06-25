@@ -1,4 +1,3 @@
-[blog_viewer.html](https://github.com/user-attachments/files/29319102/blog_viewer.html)
 <!DOCTYPE html>
 <html lang="ko">
 <head>
