@@ -1030,6 +1030,11 @@ function submitForm() {
         document.getElementById('doneExtra').textContent =
           res.isTest ? '테스트 데이터로 저장되었습니다' :
           (res.isNewClient ? '신규 업체로 등록되었습니다' : '');
+        
+        // 백그라운드에서 자동 원고 생성 요청
+        setTimeout(function() {
+          requestBlogDraft(res.projNum);
+        }, 2000);
       } else {
         document.getElementById('confirmCard').style.display='block';
         document.getElementById('submitWrap').style.display='block';
