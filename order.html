@@ -41,7 +41,7 @@ body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:#F5F7FA;colo
 .tab-pane{display:none}.tab-pane.active{display:block}
 
 /* 카드 */
-.card{background:#fff;border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card{background:#fff;border-radius:12px;margin-bottom:12px;overflow:visible;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .card-head{padding:9px 14px;font-size:12px;font-weight:700;letter-spacing:.04em;color:#fff}
 .card-head.teal{background:var(--teal)}
 .card-head.green{background:var(--green)}
@@ -63,7 +63,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .disabled-f{background:var(--gray-l);color:var(--sub);pointer-events:none}
 
 /* 업체 검색 */
-.srch-wrap{position:relative}
+.srch-wrap{position:relative;z-index:300}
 .srch-result{position:absolute;top:100%;left:0;right:0;background:#fff;border:1.5px solid var(--teal);border-radius:8px;max-height:180px;overflow-y:auto;z-index:200;box-shadow:var(--shadow);display:none}
 .srch-item{padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--gray-l);display:flex;justify-content:space-between;align-items:center;font-size:13px}
 .srch-item:hover{background:var(--teal-l)}
@@ -243,13 +243,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
         </div>
 
         <div class="field">
-          <label>5. 감리 및 측정 <span class="req">*</span></label>
-          <select id="superYnA" onchange="onSuperChange()">
-            <option value="">선택</option>
-            <option value="무">무</option>
-            <option value="유">유</option>
-          </select>
+          <label>5. 감리 및 측정업체</label>
+          <input id="superVendor" placeholder="감리 업체명 입력 (없으면 비워두세요)" oninput="onSuperVendorChange()">
         </div>
+        <input type="hidden" id="superYnA" value="무">
 
         <div class="field">
           <label>6. 폐기물</label>
@@ -345,13 +342,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <label>후측정</label>
           <select id="postMeasYn" onchange="calcCost()">
             <option value="무">무</option>
-            <option value="유">유 — 300,000원 고정</option>
+            <option value="유">유 — 300,000원</option>
           </select>
         </div>
 
         <div class="field">
-          <label>감리</label>
-          <input id="superYnB" class="auto-f" readonly placeholder="A탭 감리 선택에 연동됩니다">
+          <label>감리 <span id="superAmtTag" style="color:var(--sub);font-weight:400"></span></label>
+          <input id="superYnB" class="auto-f" readonly placeholder="A탭에서 업체명 입력 시 자동으로 '유'가 됩니다">
           <div class="cond" id="superDetail">
             <label>감리 일수</label>
             <select id="superDays" onchange="calcCost()">
@@ -597,10 +594,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <label>민원 소지</label>
           <input id="complaintRisk" placeholder="예) 바로 옆 상가 / 없음">
         </div>
-        <div class="field">
-          <label>고객 요구사항</label>
-          <input id="clientRequest" placeholder="예) 완료 일정 엄수, 행정 절차 대행">
-        </div>
+
         <div class="field">
           <label>고객 석면 지식</label>
           <select id="clientKnowledge">
@@ -617,17 +611,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="card-head green">공사 전 현장 파악 (블로그용)</div>
       <div class="card-body">
         <div class="field">
-          <label>예상되는 주요 작업 포인트</label>
-          <textarea id="keyPoint" placeholder="예) 주말 2일 안에 전 공정 완료해야 함, 음압 설치 공간 협소 예상"></textarea>
+          <label>작업 주요포인트 / 작업시 주의사항 <span style="color:var(--sub);font-weight:400">(최대한 상세하게)</span></label>
+          <textarea id="keyPoint" rows="5" placeholder="예) 주말 2일 안에 전 공정 완료해야 함, 음압 설치 공간 협소 예상&#10;도면 미확인 구역 추가 석면 가능성, 폐기물 반출 동선 협소&#10;소음·먼지 최소화 요청, 주변 상가 민원 우려 등"></textarea>
         </div>
-        <div class="field">
-          <label>예상되는 어려움 / 사전 주의사항</label>
-          <textarea id="surprise" placeholder="예) 도면 미확인 구역 추가 석면 가능성, 폐기물 반출 동선 협소"></textarea>
-        </div>
-        <div class="field">
-          <label>고객의 주요 관심사</label>
-          <input id="satisfaction" placeholder="예) 먼지·소음 최소화 요청, 주변 상가 민원 우려">
-        </div>
+
+
         <div class="field">
           <label>유사 현장 경험 또는 참고사항</label>
           <input id="tip" placeholder="예) 동일 건물 이전 시공 이력 있음">
@@ -738,11 +726,14 @@ function onWorkTitleChange() {
   document.getElementById('workTitleOther').style.display = v === 'other' ? 'block' : 'none';
 }
 
-// 감리 A탭 → B탭 연동
-function onSuperChange() {
-  const v = document.getElementById('superYnA').value;
+// 감리 A탭(업체명 입력) → B탭 연동
+function onSuperVendorChange() {
+  const vendor = document.getElementById('superVendor').value.trim();
+  const v = vendor ? '유' : '무';
+  document.getElementById('superYnA').value = v;
   const bField = document.getElementById('superYnB');
-  bField.value = v === '유' ? '유 (감리 있음)' : '무 (감리 없음)';
+  bField.value = v === '유' ? '유 (' + vendor + ')' : '무';
+  document.getElementById('superAmtTag').textContent = v === '유' ? '— 금액 선택' : '';
   toggleCond('superDetail', v === '유');
   calcCost();
 }
@@ -922,7 +913,7 @@ function buildConfirm() {
     ['2. 주소', document.getElementById('address').value||'미입력'],
     ['3. 공사내용', document.getElementById('workContent').value||'미입력'],
     ['4. 공사범위', document.getElementById('workScope').value||'미입력'],
-    ['5. 감리 및 측정', document.getElementById('superYnA').value||'미선택'],
+    ['5. 감리 및 측정업체', document.getElementById('superVendor').value||'없음'],
     ['6. 폐기물', document.getElementById('wasteVendor').value||'미선택'],
     ['7. 발주자 담당자', (document.getElementById('clientPersonName').value||'') + ' ' + (document.getElementById('clientPhone').value||'')],
     ['8. 영업 담당자', document.getElementById('salesPerson').value||'미선택'],
@@ -963,6 +954,7 @@ function collect() {
     workContent: document.getElementById('workContent').value,
     workScope: document.getElementById('workScope').value,
     superYnA: document.getElementById('superYnA').value,
+    superVendor: document.getElementById('superVendor').value.trim(),
     wasteVendor: document.getElementById('wasteVendor').value,
     clientPersonName: document.getElementById('clientPersonName').value,
     clientPhone: document.getElementById('clientPhone').value,
@@ -989,7 +981,7 @@ function collect() {
     clientRequest: document.getElementById('clientRequest').value,
     clientKnowledge: document.getElementById('clientKnowledge').value,
     keyPoint: document.getElementById('keyPoint').value,
-    surprise: document.getElementById('surprise').value,
+    surprise: '',
     satisfaction: document.getElementById('satisfaction').value,
     tip: document.getElementById('tip').value,
     photoYn: document.getElementById('photoYn').value,
@@ -1133,7 +1125,7 @@ function openCostApp(projNum) {
 
 // 초기값
 document.getElementById('recvDate').value=new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'2-digit',day:'2-digit'});
-document.getElementById('superYnB').value='무 (A탭에서 선택하세요)';
+document.getElementById('superYnB').value='무';
 </script>
 </body>
 </html>
