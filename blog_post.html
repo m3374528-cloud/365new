@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>블로그 원고 생성</title>
+<style>
+  :root{
+    --teal:#1D9E75;--teal-d:#167a5c;--amber:#E8A020;
+    --gray:#6B7280;--gray-l:#F3F4F6;--border:#E5E7EB;
+    --red:#EF4444;--sub:#9CA3AF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Apple SD Gothic Neo',sans-serif;font-size:14px;
+       background:#f9fafb;color:#111;padding-bottom:80px}
+  .header{background:var(--teal);color:#fff;padding:14px 16px;
+          font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .wrap{max-width:600px;margin:0 auto;padding:16px}
+  .card{background:#fff;border-radius:12px;margin-bottom:14px;
+        overflow:visible;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+  .card-head{padding:10px 14px;font-size:13px;font-weight:700;
+             border-radius:12px 12px 0 0;letter-spacing:.3px}
+  .card-head.teal{background:var(--teal);color:#fff}
+  .card-head.amber{background:var(--amber);color:#fff}
+  .card-body{padding:14px}
+  .field{margin-bottom:14px}
+  .field:last-child{margin-bottom:0}
+  label{display:block;font-size:12px;font-weight:600;color:var(--gray);margin-bottom:5px}
+  input,select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);
+    border-radius:8px;font-size:14px;background:#fff;outline:none;
+    transition:border-color .15s}
+  input:focus,select:focus,textarea:focus{border-color:var(--teal)}
+  textarea{resize:vertical;min-height:80px;line-height:1.6}
+  .req{color:var(--red)}
+  .tag-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .tag{padding:6px 12px;border:1.5px solid var(--border);border-radius:20px;
+       font-size:13px;cursor:pointer;background:#fff;transition:.15s;user-select:none}
+  .tag.sel{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .cond{display:none;margin-top:10px;padding:10px 12px;
+        background:var(--gray-l);border-radius:8px}
+  .cond.show{display:block}
+  .sub-label{font-size:11px;color:var(--sub);margin-bottom:4px;font-weight:500}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .chip{padding:5px 10px;border:1.5px solid var(--border);border-radius:16px;
+        font-size:12px;cursor:pointer;background:#fff;transition:.15s}
+  .chip.sel{background:var(--amber);color:#fff;border-color:var(--amber)}
+  .submit-wrap{position:fixed;bottom:0;left:0;right:0;padding:14px 16px;
+               background:#fff;border-top:1px solid var(--border);
+               max-width:600px;margin:0 auto}
+  .btn{width:100%;padding:14px;background:var(--teal);color:#fff;border:none;
+       border-radius:10px;font-size:16px;font-weight:700;cursor:pointer}
+  .btn:active{background:var(--teal-d)}
+  .loading{display:none;text-align:center;padding:40px 16px}
+  .loading-text{font-size:15px;font-weight:600;color:var(--teal);margin-top:12px}
+  .loading-sub{font-size:13px;color:var(--sub);margin-top:6px}
+  .spinner{width:44px;height:44px;border:4px solid var(--gray-l);
+           border-top:4px solid var(--teal);border-radius:50%;
+           animation:spin 1s linear infinite;margin:0 auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .done{display:none;text-align:center;padding:40px 16px}
+  .done-icon{font-size:48px;margin-bottom:12px}
+  .done-title{font-size:18px;font-weight:700;color:var(--teal);margin-bottom:8px}
+  .done-sub{font-size:13px;color:var(--sub);line-height:1.6}
+  .btn-outline{margin-top:16px;padding:12px 24px;background:#fff;
+               color:var(--teal);border:2px solid var(--teal);border-radius:10px;
+               font-size:14px;font-weight:600;cursor:pointer}
+  .alert{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
+  .alert.err{background:#FEF2F2;color:var(--red);border:1px solid #FCA5A5}
+</style>
+</head>
+<body>
+
+<div class="header">✍️ 블로그 포스팅용 원고 생성</div>
+
+<div class="wrap" id="mainWrap">
+
+  <div class="alert err" id="alertBox"></div>
+
+  <!-- 건물 유형 -->
+  <div class="card">
+    <div class="card-head teal">건물 유형 <span class="req">*</span></div>
+    <div class="card-body">
+      <div class="tag-group" id="buildingType">
+        <div class="tag" onclick="togSingle(this,'buildingType')">상가</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">사무실</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">공장·창고</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">의료시설</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">관공서</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">농촌구옥</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">축사</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">아파트</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">주택</div>
+        <div class="tag" onclick="togSingle(this,'buildingType')">학교</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 석면 종류 (복수 선택) -->
+  <div class="card">
+    <div class="card-head teal">석면 종류 <span class="req">*</span></div>
+    <div class="card-body">
+      <div style="font-size:12px;color:var(--sub);margin-bottom:8px">복수 선택 가능</div>
+      <div class="tag-group" id="asbestosType">
+        <div class="tag" onclick="togMulti(this)">천장텍스</div>
+        <div class="tag" onclick="togMulti(this)">슬레이트지붕</div>
+        <div class="tag" onclick="togMulti(this)">큐비클</div>
+        <div class="tag" onclick="togMulti(this)">밤라이트</div>
+        <div class="tag" onclick="togMulti(this)">개스킷</div>
+        <div class="tag" onclick="togMulti(this)">뿜칠</div>
+        <div class="tag" onclick="togMulti(this)">바닥타일</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 공사 배경 -->
+  <div class="card">
+    <div class="card-head teal">공사 배경 <span class="req">*</span></div>
+    <div class="card-body">
+      <div class="tag-group" id="workBg">
+        <div class="tag" onclick="togSingle(this,'workBg')">인테리어 전 선행 조사 및 철거</div>
+        <div class="tag" onclick="togSingle(this,'workBg')">인테리어 철거 진행 중 발견</div>
+        <div class="tag" onclick="togSingle(this,'workBg')">재건축 철거</div>
+        <div class="tag" onclick="togSingle(this,'workBg')">지붕 교체</div>
+        <div class="tag" onclick="togSingle(this,'workBg')">리모델링</div>
+        <div class="tag" onclick="togSingle(this,'workBg',true')">기타</div>
+      </div>
+      <div class="cond" id="workBgEtcWrap">
+        <input id="workBgEtc" placeholder="공사 배경을 직접 입력해주세요">
+      </div>
+    </div>
+  </div>
+
+  <!-- 외주장비 -->
+  <div class="card">
+    <div class="card-head amber">외주 장비</div>
+    <div class="card-body">
+      <div class="field">
+        <label>외주 장비 사용 여부</label>
+        <div class="tag-group" id="equipYn">
+          <div class="tag" onclick="togSingle(this,'equipYn');toggleCond('equipDetail',false)">무</div>
+          <div class="tag" onclick="togSingle(this,'equipYn');toggleCond('equipDetail',true)">유</div>
+        </div>
+        <div class="cond" id="equipDetail">
+          <div class="sub-label">사용 장비 선택 (복수 선택 가능)</div>
+          <div class="chips" id="equipList">
+            <div class="chip" onclick="togChip(this)">스카이</div>
+            <div class="chip" onclick="togChip(this)">사다리차</div>
+            <div class="chip" onclick="togChip(this)">지게차</div>
+            <div class="chip" onclick="togChip(this)">비계</div>
+            <div class="chip" onclick="togChip(this,true)">기타</div>
+          </div>
+          <div class="cond" id="equipEtcWrap" style="margin-top:8px">
+            <input id="equipEtc" placeholder="장비명 직접 입력">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 수기 입력 -->
+  <div class="card">
+    <div class="card-head amber">현장 정보</div>
+    <div class="card-body">
+      <div class="field">
+        <label>위치 <span class="req">*</span></label>
+        <input id="location" placeholder="예) 경기 연천군 / 서울 마포구">
+      </div>
+      <div class="field">
+        <label>면적 (㎡)</label>
+        <input id="area" type="number" placeholder="예) 480">
+      </div>
+      <div class="field">
+        <label>작업 높이</label>
+        <input id="height" placeholder="예) 천장고 2.7m / 지붕고 약 5m">
+      </div>
+      <div class="field">
+        <label>특이사항</label>
+        <textarea id="note" placeholder="예) 주변 논밭으로 대형차량 진입 불가, 소형 지게차로 폐기물 이동&#10;주말에만 작업 가능, 입주 전 완료 필수 등"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 로딩 -->
+  <div class="loading" id="loadingScreen">
+    <div class="spinner"></div>
+    <div class="loading-text">원고 생성 중입니다...</div>
+    <div class="loading-sub">Claude AI가 현장 정보를 분석하고 있습니다<br>약 30~60초 소요됩니다</div>
+  </div>
+
+  <!-- 완료 -->
+  <div class="done" id="doneScreen">
+    <div class="done-icon">✅</div>
+    <div class="done-title">원고 생성 완료!</div>
+    <div class="done-sub" id="doneMsg">담당자 이메일로 원고가 전송되었습니다.</div>
+    <button class="btn-outline" onclick="resetForm()">새 원고 작성</button>
+  </div>
+
+</div>
+
+<div class="submit-wrap" id="submitWrap">
+  <button class="btn" onclick="submitBlog()">원고 생성 요청</button>
+</div>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPEGAy6Y9fK7Y2M4XWoCNd6DLPjENfLpamzeg9kM27WyvdNzgvoob374pgC27m3tqBCQ/exec';
+
+// 단일 선택 토글
+function togSingle(el, gid, isEtc) {
+  document.querySelectorAll('#' + gid + ' .tag').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
+  if (gid === 'workBg') {
+    toggleCond('workBgEtcWrap', isEtc || el.textContent === '기타');
+  }
+}
+
+// 복수 선택 토글
+function togMulti(el) {
+  el.classList.toggle('sel');
+}
+
+// 칩 토글
+function togChip(el, isEtc) {
+  el.classList.toggle('sel');
+  if (isEtc) {
+    const anyEtc = el.classList.contains('sel');
+    toggleCond('equipEtcWrap', anyEtc);
+  }
+}
+
+function toggleCond(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('show', show);
+}
+
+function showAlert(msg) {
+  const el = document.getElementById('alertBox');
+  el.textContent = msg;
+  el.style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function hideAlert() {
+  document.getElementById('alertBox').style.display = 'none';
+}
+
+function collect() {
+  // 건물유형
+  const btEl = document.querySelector('#buildingType .tag.sel');
+  const buildingType = btEl ? btEl.textContent.trim() : '';
+
+  // 석면종류 (복수)
+  const asbestos = [...document.querySelectorAll('#asbestosType .tag.sel')]
+    .map(t => t.textContent.trim()).join(', ');
+
+  // 공사배경
+  const bgEl = document.querySelector('#workBg .tag.sel');
+  let workBg = bgEl ? bgEl.textContent.trim() : '';
+  if (workBg === '기타') workBg = document.getElementById('workBgEtc').value.trim();
+
+  // 외주장비
+  const equipEl = document.querySelector('#equipYn .tag.sel');
+  const equipYn = equipEl ? equipEl.textContent.trim() : '무';
+  let equip = '';
+  if (equipYn === '유') {
+    const chips = [...document.querySelectorAll('#equipList .chip.sel')]
+      .map(c => c.textContent.trim());
+    if (chips.includes('기타')) {
+      chips[chips.indexOf('기타')] = document.getElementById('equipEtc').value.trim() || '기타';
+    }
+    equip = chips.join(', ');
+  }
+
+  return {
+    buildingType,
+    asbestos,
+    workBg,
+    equipYn,
+    equip,
+    location: document.getElementById('location').value.trim(),
+    area: document.getElementById('area').value.trim(),
+    height: document.getElementById('height').value.trim(),
+    note: document.getElementById('note').value.trim()
+  };
+}
+
+function validate(d) {
+  if (!d.buildingType) return '건물 유형을 선택해주세요.';
+  if (!d.asbestos) return '석면 종류를 선택해주세요.';
+  if (!d.workBg) return '공사 배경을 선택해주세요.';
+  if (!d.location) return '위치를 입력해주세요.';
+  return null;
+}
+
+async function submitBlog() {
+  hideAlert();
+  const data = collect();
+  const err = validate(data);
+  if (err) { showAlert(err); return; }
+
+  document.getElementById('mainWrap').style.display = 'none';
+  document.getElementById('submitWrap').style.display = 'none';
+  document.getElementById('loadingScreen').style.display = 'block';
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'generateBlogOnly', data })
+    });
+    const json = await res.json();
+
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('doneScreen').style.display = 'block';
+
+    if (json.success) {
+      document.getElementById('doneMsg').textContent =
+        '담당자 이메일로 원고가 전송되었습니다.';
+    } else {
+      document.getElementById('doneMsg').textContent =
+        '오류가 발생했습니다: ' + (json.error || '알 수 없는 오류');
+    }
+  } catch(e) {
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('doneScreen').style.display = 'block';
+    document.getElementById('doneMsg').textContent = '네트워크 오류가 발생했습니다.';
+  }
+}
+
+function resetForm() {
+  document.querySelectorAll('.tag.sel,.chip.sel').forEach(el => el.classList.remove('sel'));
+  document.querySelectorAll('.cond.show').forEach(el => el.classList.remove('show'));
+  ['location','area','height','note','workBgEtc','equipEtc'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('doneScreen').style.display = 'none';
+  document.getElementById('mainWrap').style.display = 'block';
+  document.getElementById('submitWrap').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
